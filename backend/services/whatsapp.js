@@ -5,9 +5,15 @@ let client;
 let isReady = false;
 
 const initializeWhatsApp = () => {
+  // WhatsApp Web requires a display/Chromium - only enable in local environments
+  // or on servers where ENABLE_WHATSAPP=true is explicitly set
+  if (!process.env.ENABLE_WHATSAPP) {
+    console.log('ℹ️  WhatsApp service disabled. Set ENABLE_WHATSAPP=true to enable.');
+    return;
+  }
+
   client = new Client({
     authStrategy: new LocalAuth({ dataPath: './.wwebjs_auth' }),
-    // Important for headless environments:
     puppeteer: {
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     }

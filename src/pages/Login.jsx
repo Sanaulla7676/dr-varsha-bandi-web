@@ -25,7 +25,28 @@ export default function Login() {
         navigate('/dashboard');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      // If the backend is unreachable (not deployed), fall back to a client-side
+      // demo session so the Vercel preview is always usable with demo credentials.
+      const isNetworkError = !err.response;
+      const isDemoCredentials =
+        form.email === 'doctor@homeopathway.com' && form.password === 'doctor123';
+
+      if (isNetworkError && isDemoCredentials) {
+        const mockDoctor = {
+          id: '000000000000000000000000',
+          name: 'Dr. Varsha Bandi',
+          email: form.email,
+          clinicName: 'Homeopathway Clinic',
+        };
+        // Build a minimal fake JWT-like token (header.payload.sig) using btoa
+        const header = btoa(JSON.stringify({ alg: 'none', typ: 'JWT' }));
+        const payload = btoa(JSON.stringify({ ...mockDoctor, exp: 9999999999 }));
+        const mockToken = `${header}.${payload}.demo-sig`;
+        login(mockToken, mockDoctor);
+        navigate('/dashboard');
+      } else {
+        setError(err.response?.data?.message || 'Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
