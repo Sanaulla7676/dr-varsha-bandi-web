@@ -77,14 +77,14 @@ export default function CaseStudy() {
           <div className="space-y-1">
             {SECTIONS.map(s => (
               <button key={s.key} onClick={() => setActiveSection(s.key)}
-                className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all ${activeSection === s.key ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/20' : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04]'}`}>
+                className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all ${activeSection === s.key ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/20' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'}`}>
                 <span className="material-symbols-outlined text-[15px]">{s.icon}</span>
                 <span className="truncate">{s.label}</span>
                 {form[s.key] && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-400" />}
               </button>
             ))}
             <button onClick={() => setActiveSection('rx')}
-              className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all ${activeSection === 'rx' ? 'bg-violet-500/15 text-violet-400 border border-violet-500/20' : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04]'}`}>
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all ${activeSection === 'rx' ? 'bg-violet-500/15 text-violet-400 border border-violet-500/20' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'}`}>
               <span className="material-symbols-outlined text-[15px]">medication</span>
               <span>Prescriptions</span>
             </button>
@@ -103,18 +103,18 @@ export default function CaseStudy() {
             {activeSection === 'rx' ? (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-white">Prescriptions</h3>
+                  <h3 className="text-sm font-semibold text-foreground">Prescriptions</h3>
                   <button onClick={() => setRxList([...rxList, { medicine: '', potency: '', dosage: '', frequency: '', duration: '' }])}
                     className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition-colors">
                     <span className="material-symbols-outlined text-[15px]">add</span>Add Medicine
                   </button>
                 </div>
                 {rxList.map((rx, idx) => (
-                  <div key={idx} className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-4 space-y-3">
-                    <input value={rx.medicine} onChange={e => handleRx(idx, 'medicine', e.target.value)} placeholder="Medicine name" className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2 text-sm text-white/80 placeholder-white/25 outline-none focus:border-indigo-500/40" />
+                  <div key={idx} className="bg-secondary/30 border border-border rounded-2xl p-4 space-y-3">
+                    <input value={rx.medicine} onChange={e => handleRx(idx, 'medicine', e.target.value)} placeholder="Medicine name" className="w-full bg-secondary/50 border border-border rounded-xl px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-indigo-500/40" />
                     <div className="grid grid-cols-2 gap-3">
                       {['potency','dosage','frequency','duration'].map(k => (
-                        <input key={k} value={rx[k]} onChange={e => handleRx(idx, k, e.target.value)} placeholder={k.charAt(0).toUpperCase() + k.slice(1)} className="bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2 text-sm text-white/80 placeholder-white/25 outline-none focus:border-indigo-500/40" />
+                        <input key={k} value={rx[k]} onChange={e => handleRx(idx, k, e.target.value)} placeholder={k.charAt(0).toUpperCase() + k.slice(1)} className="bg-secondary/50 border border-border rounded-xl px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-indigo-500/40" />
                       ))}
                     </div>
                     {rxList.length > 1 && <button onClick={() => setRxList(rxList.filter((_, i) => i !== idx))} className="text-xs text-red-400/60 hover:text-red-400 transition-colors">Remove</button>}
@@ -123,15 +123,15 @@ export default function CaseStudy() {
               </div>
             ) : (
               <div>
-                <div className="flex items-center gap-2 mb-3 sticky top-0 z-10 bg-background/80 backdrop-blur-xl py-4 border-b border-white/[0.05] shadow-sm transition-all">
+                <div className="flex items-center gap-2 mb-3 sticky top-0 z-10 bg-background/80 backdrop-blur-xl py-4 border-b border-border shadow-sm transition-all">
                   <span className="material-symbols-outlined text-indigo-400 text-[20px]">{SECTIONS.find(s => s.key === activeSection)?.icon}</span>
-                  <h3 className="text-lg font-semibold text-white">{SECTIONS.find(s => s.key === activeSection)?.label}</h3>
+                  <h3 className="text-lg font-semibold text-foreground">{SECTIONS.find(s => s.key === activeSection)?.label}</h3>
                 </div>
                 <textarea value={form[activeSection] || ''} onChange={e => handleChange(activeSection, e.target.value)} rows={14}
-                  className="w-full bg-white/[0.03] border border-white/[0.07] rounded-2xl px-5 py-4 text-sm text-white/80 placeholder-white/20 outline-none focus:border-indigo-500/30 transition-colors resize-none leading-relaxed"
+                  className="w-full bg-secondary/30 border border-border rounded-2xl px-5 py-4 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-indigo-500/30 transition-colors resize-none leading-relaxed"
                   placeholder={`Enter ${SECTIONS.find(s => s.key === activeSection)?.label.toLowerCase()}...`} />
                 <div className="flex justify-between mt-4">
-                  {currentIdx > 0 && <button onClick={() => setActiveSection(SECTIONS[currentIdx - 1].key)} className="text-xs text-white/40 hover:text-white/70 flex items-center gap-1 transition-colors"><span className="material-symbols-outlined text-[15px]">arrow_back</span>Previous</button>}
+                  {currentIdx > 0 && <button onClick={() => setActiveSection(SECTIONS[currentIdx - 1].key)} className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"><span className="material-symbols-outlined text-[15px]">arrow_back</span>Previous</button>}
                   <div className="ml-auto">
                     {currentIdx < SECTIONS.length - 1
                       ? <button onClick={() => setActiveSection(SECTIONS[currentIdx + 1].key)} className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition-colors">Next<span className="material-symbols-outlined text-[15px]">arrow_forward</span></button>

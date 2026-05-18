@@ -21,7 +21,7 @@ export default function Login() {
     try {
       const { data } = await loginDoctor(form);
       if (data.success) {
-        login(data.token, data.doctor);
+        login(data.token, data.refreshToken, data.doctor);
         navigate('/dashboard');
       }
     } catch (err) {
@@ -42,7 +42,7 @@ export default function Login() {
         const header = btoa(JSON.stringify({ alg: 'none', typ: 'JWT' }));
         const payload = btoa(JSON.stringify({ ...mockDoctor, exp: 9999999999 }));
         const mockToken = `${header}.${payload}.demo-sig`;
-        login(mockToken, mockDoctor);
+        login(mockToken, 'mock-refresh-token', mockDoctor);
         navigate('/dashboard');
       } else {
         setError(err.response?.data?.message || 'Login failed. Please try again.');

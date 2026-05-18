@@ -1,8 +1,29 @@
 const fs = require('fs');
 const path = require('path');
 
-const inputDir = 'c:\\Users\\user\\Desktop\\mahendi';
+// Help usage info
+if (process.argv.includes('--help') || process.argv.includes('-h')) {
+    console.log(`
+Usage:
+    node convert.cjs [input_directory]
+
+Arguments:
+    input_directory    The path to the folder containing Stitch exported HTML files.
+                       Defaults to the 'stitch-html' folder in the project root if omitted.
+    `);
+    process.exit(0);
+}
+
+const inputDir = process.argv[2] || process.env.CONVERT_INPUT_DIR || path.join(__dirname, 'stitch-html');
 const outputDir = path.join(__dirname, 'src', 'pages');
+
+if (!fs.existsSync(inputDir)) {
+    console.warn(`⚠️  Input directory "${inputDir}" does not exist.`);
+    console.log(`Creating directory "${inputDir}" as a placeholder...`);
+    fs.mkdirSync(inputDir, { recursive: true });
+    console.log(`Please place your exported Stitch HTML files in "${inputDir}" and run the script again.`);
+    process.exit(0);
+}
 
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
@@ -13,11 +34,6 @@ function kebabToCamel(str) {
 }
 
 const files = fs.readdirSync(inputDir).filter(f => f.endsWith('.html') && f !== 'index.html' && f !== 'stitch_landing.html');
-
-// For login_refined, we already downloaded it. 
-if (!files.includes('login_refined.html') && fs.existsSync(path.join(inputDir, 'login_refined.html'))) {
-    files.push('login_refined.html');
-}
 
 files.forEach(file => {
     let content = fs.readFileSync(path.join(inputDir, file), 'utf8');

@@ -53,9 +53,9 @@ export default function TopBar({ title }) {
         </Link>
 
         {/* Notifications */}
-        <button className="relative p-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-colors">
+        <button onClick={() => navigate('/notifications')} className="relative p-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-colors" title="View Notifications">
           <span className="material-symbols-outlined text-[20px]">notifications</span>
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full" />
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full animate-pulse" />
         </button>
 
         {/* Doctor Avatar */}

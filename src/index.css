@@ -1,12 +1,133 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+
+  /* Legacy Colors */
+  --color-on-tertiary-container: #2180ff;
+  --color-on-tertiary: #ffffff;
+  --color-on-surface-variant: #44474e;
+  --color-on-secondary-fixed-variant: #434750;
+  --color-on-secondary-container: #61646e;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-dim: #dbdad6;
+  --color-on-tertiary-fixed: #001a41;
+  --color-outline-variant: #c4c6cf;
+  --color-primary-fixed-dim: #b2c7f3;
+  --color-deep-navy: #001A3D;
+  --color-error-container: #ffdad6;
+  --color-surface-variant: #e4e2de;
+  --color-tertiary-fixed-dim: #adc7ff;
+  --color-matte-black: #1A1A1A;
+  --color-secondary-fixed-dim: #c4c6d2;
+  --color-lavender-mist: #E8EAF6;
+  --color-inverse-on-surface: #f2f0ed;
+  --color-tertiary-fixed: #d8e2ff;
+  --color-surface-bright: #fbf9f5;
+  --color-on-secondary-fixed: #181b24;
+  --color-on-error: #ffffff;
+  --color-inverse-primary: #b2c7f3;
+  --color-on-primary-container: #6f84ad;
+  --color-electric-blue: #007BFF;
+  --color-on-secondary: #ffffff;
+  --color-primary-fixed: #d7e3ff;
+  --color-surface-container-high: #eae8e4;
+  --color-on-tertiary-fixed-variant: #004493;
+  --color-surface-tint: #4a5f85;
+  --color-secondary-container: #e0e2ee;
+  --color-inverse-surface: #30312e;
+  --color-cta-pink: #FF2D78;
+  --color-surface-container: #efeeea;
+  --color-on-surface: #1b1c1a;
+  --color-surface: #fbf9f5;
+  --color-surface-container-low: #f5f3ef;
+  --color-tertiary: #000000;
+  --color-secondary-fixed: #e0e2ee;
+  --color-surface-container-highest: #e4e2de;
+  --color-cream-white: #FDFBF7;
+  --color-error: #ba1a1a;
+  --color-on-background: #1b1c1a;
+  --color-outline: #74777f;
+  --color-on-primary-fixed: #011b3e;
+  --color-on-primary-fixed-variant: #32476c;
+  --color-tertiary-container: #001a41;
+  --color-on-error-container: #93000a;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #011b3e;
+
+  /* Spacing */
+  --spacing-container-padding-mobile: 24px;
+  --spacing-container-padding-desktop: 64px;
+  --spacing-base: 8px;
+  --spacing-gutter: 24px;
+  --spacing-section-gap: 120px;
+
+  /* Radii */
+  --radius-default: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+
+  /* Font Families */
+  --font-body-lg: "Manrope", sans-serif;
+  --font-label-md: "Inter", sans-serif;
+  --font-label-sm: "Inter", sans-serif;
+  --font-headline-lg-mobile: "Manrope", sans-serif;
+  --font-headline-lg: "Manrope", sans-serif;
+  --font-headline-md: "Manrope", sans-serif;
+  --font-headline-display: "Manrope", sans-serif;
+  --font-body-md: "Manrope", sans-serif;
+}
+
+@utility glass {
+  background-color: hsla(var(--card), 0.6);
+  backdrop-filter: blur(24px);
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+@utility glass-panel {
+  background-color: hsl(var(--card));
+  backdrop-filter: blur(20px);
+  border-width: 1px;
+  border-color: hsl(var(--border));
+  border-radius: var(--radius-default);
+}
+
+@utility premium-shadow {
+  box-shadow: var(--premium-shadow);
+}
+
+@utility animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
 
 @layer base {
   :root {
+    --premium-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
     --background: 240 20% 99%;
     --foreground: 215 50% 12%;
     --card: 0 0% 100%;
@@ -32,6 +153,7 @@
   }
 
   .dark {
+    --premium-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     --background: 230 25% 4%;
     --foreground: 210 40% 98%;
     --card: 230 25% 4%;
@@ -54,24 +176,20 @@
     --sidebar: 230 25% 6%;
     --sidebar-border: 217 32% 12%;
   }
-}
 
-@layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-family: 'Inter', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
-    @apply tracking-tight;
-  }
-  button {
-    @apply inline-flex items-center justify-center text-center transition-all;
+    letter-spacing: -0.025em;
   }
 }
 
@@ -84,35 +202,15 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
+  background-color: hsla(var(--primary), 0.2);
+  border-radius: 9999px;
 }
-
-.glass {
-  @apply bg-card/60 backdrop-blur-xl border border-white/10 dark:border-white/5;
-}
-
-.premium-shadow {
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-}
-
-.dark .premium-shadow {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-/* Glassmorphism utility */
-.glass-panel {
-  background: hsl(var(--card));
-  backdrop-filter: blur(20px);
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsla(var(--primary), 0.4);
 }
 
 /* Animations */
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-slide-up {
-  animation: slideUp 0.4s ease-out forwards;
 }

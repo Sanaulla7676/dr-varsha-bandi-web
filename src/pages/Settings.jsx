@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
 import { useAuthStore } from '../store';
+import { getGoogleAuthUrl } from '../lib/api';
 
 export default function Settings() {
   const { doctor, updateDoctor } = useAuthStore();
@@ -104,6 +105,45 @@ export default function Settings() {
                 Save Preferences
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* Google Calendar Integration */}
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <span className="material-symbols-outlined text-primary">calendar_today</span>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Google Calendar Integration</h3>
+              <p className="text-xs text-muted-foreground">Connect your Google account to generate Meet links for Video Consultations</p>
+            </div>
+          </div>
+          <div className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl border border-border">
+            <div>
+              <p className="text-sm font-medium text-foreground">Status</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {doctor?.googleTokens?.refresh_token ? 'Connected' : 'Not Connected'}
+              </p>
+            </div>
+            {doctor?.googleTokens?.refresh_token ? (
+              <span className="text-xs text-emerald-500 flex items-center gap-1 font-bold">
+                <span className="material-symbols-outlined text-[16px]">check_circle</span> Linked
+              </span>
+            ) : (
+              <button 
+                onClick={async () => {
+                  try {
+                    const { data } = await getGoogleAuthUrl();
+                    if (data.url) window.location.href = data.url;
+                  } catch (err) {
+                    alert('Failed to get auth URL');
+                  }
+                }}
+                className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors">
+                <span className="material-symbols-outlined text-[18px]">link</span> Connect Google
+              </button>
+            )}
           </div>
         </div>
 

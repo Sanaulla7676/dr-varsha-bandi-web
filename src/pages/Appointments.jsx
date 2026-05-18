@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../components/Layout';
 import { getAppointments, createAppointment, updateAppointment, deleteAppointment, getPatients } from '../lib/api';
+import { useAuthStore } from '../store';
 
 const STATUS_COLORS = {
   Pending: 'text-amber-500 bg-amber-500/10 border-amber-500/20',
@@ -38,6 +39,7 @@ function Modal({ onClose, children }) {
 }
 
 export default function Appointments() {
+  const { doctor } = useAuthStore();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -83,7 +85,18 @@ export default function Appointments() {
   const handleSave = async () => {
     setSaving(true);
     try { await createAppointment(form); setShowModal(false); fetchAll(); }
-    catch { setShowModal(false); setAppointments(prev => [{ _id: Date.now().toString(), ...form, patientId: patients.find(p => p._id === form.patientId) || {} }, ...prev]); }
+    catch {
+      const isGoogleConnected = doctor?.googleTokens?.refresh_token;
+      const newApt = {
+        _id: Date.now().toString(),
+        ...form,
+        patientId: patients.find(p => p._id === form.patientId) || { firstName: 'New', lastName: 'Patient', phone: '9876543210' },
+        googleMeetLink: null,
+        videoRoomId: form.type === 'Video' ? `hp-room-${Date.now()}` : null
+      };
+      setShowModal(false);
+      setAppointments(prev => [newApt, ...prev]);
+    }
     finally { setSaving(false); }
   };
 
@@ -171,8 +184,8 @@ export default function Appointments() {
                           </button>
                           {apt.googleMeetLink && (
                             <button onClick={() => { navigator.clipboard.writeText(apt.googleMeetLink); alert('Link copied!'); }}
-                              className="p-2.5 bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground rounded-xl transition-all border border-border">
-                              <span className="material-symbols-outlined text-[18px]">content_copy</span>
+                              className="flex items-center gap-2 bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground rounded-xl px-3 py-2 text-xs font-bold transition-all border border-border">
+                              <span className="material-symbols-outlined text-[16px]">content_copy</span> Copy Link
                             </button>
                           )}
                         </>

@@ -17,12 +17,13 @@ function getOAuth2Client() {
 /**
  * Generate the Google OAuth consent URL
  */
-function getAuthUrl() {
+function getAuthUrl(state) {
   const oauth2Client = getOAuth2Client();
   return oauth2Client.generateAuthUrl({
     access_type: 'offline',
     prompt: 'consent',
     scope: SCOPES,
+    state: state,
   });
 }
 

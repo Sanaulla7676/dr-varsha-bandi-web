@@ -32,21 +32,21 @@ export default function PatientProfile() {
     <Layout title="Patient Profile">
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Patient Header Card */}
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-secondary/30 border border-border rounded-2xl p-6">
           <div className="flex items-start gap-5 flex-wrap">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500/30 to-violet-500/30 border border-white/[0.1] flex items-center justify-center text-2xl font-semibold text-white/70 flex-shrink-0">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500/30 to-violet-500/30 border border-border flex items-center justify-center text-2xl font-semibold text-foreground/70 flex-shrink-0">
               {patient?.firstName?.charAt(0)}{patient?.lastName?.charAt(0)}
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-3 flex-wrap">
-                <h2 className="text-xl font-semibold text-white">{patient?.firstName} {patient?.lastName}</h2>
-                <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${patient?.status === 'Active' ? 'text-emerald-400 bg-emerald-400/10' : 'text-white/30 bg-white/[0.06]'}`}>{patient?.status}</span>
+                <h2 className="text-xl font-semibold text-foreground">{patient?.firstName} {patient?.lastName}</h2>
+                <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${patient?.status === 'Active' ? 'text-emerald-400 bg-emerald-400/10' : 'text-muted-foreground bg-secondary'}`}>{patient?.status}</span>
               </div>
-              <p className="text-sm text-white/40 mt-1">{patient?.patientId} · {patient?.gender} · {patient?.age}y · {patient?.bloodGroup}</p>
+              <p className="text-sm text-muted-foreground mt-1">{patient?.patientId} · {patient?.gender} · {patient?.age}y · {patient?.bloodGroup}</p>
               <div className="flex items-center gap-4 mt-3 flex-wrap">
-                <span className="flex items-center gap-1.5 text-xs text-white/40"><span className="material-symbols-outlined text-[14px]">phone</span>{patient?.phone}</span>
-                {patient?.email && <span className="flex items-center gap-1.5 text-xs text-white/40"><span className="material-symbols-outlined text-[14px]">mail</span>{patient?.email}</span>}
-                {patient?.address && <span className="flex items-center gap-1.5 text-xs text-white/40"><span className="material-symbols-outlined text-[14px]">location_on</span>{patient?.address}</span>}
+                <span className="flex items-center gap-1.5 text-xs text-muted-foreground"><span className="material-symbols-outlined text-[14px]">phone</span>{patient?.phone}</span>
+                {patient?.email && <span className="flex items-center gap-1.5 text-xs text-muted-foreground"><span className="material-symbols-outlined text-[14px]">mail</span>{patient?.email}</span>}
+                {patient?.address && <span className="flex items-center gap-1.5 text-xs text-muted-foreground"><span className="material-symbols-outlined text-[14px]">location_on</span>{patient?.address}</span>}
               </div>
             </div>
             {/* Quick Actions */}
@@ -65,10 +65,10 @@ export default function PatientProfile() {
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-white/[0.03] border border-white/[0.06] rounded-xl p-1 w-fit">
+        <div className="flex gap-1 bg-secondary/30 border border-border rounded-xl p-1 w-fit">
           {TABS.map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded-lg text-xs font-medium capitalize transition-all ${activeTab === tab ? 'bg-indigo-500/20 text-indigo-400' : 'text-white/40 hover:text-white/70'}`}>
+              className={`px-4 py-2 rounded-lg text-xs font-medium capitalize transition-all ${activeTab === tab ? 'bg-indigo-500/20 text-indigo-400' : 'text-muted-foreground hover:text-foreground'}`}>
               {tab}
             </button>
           ))}
@@ -82,11 +82,11 @@ export default function PatientProfile() {
               { label: 'Last Visit', value: patient?.lastVisitDate ? new Date(patient.lastVisitDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '—', icon: 'history' },
               { label: 'Total Visits', value: visits.length.toString(), icon: 'stethoscope' },
             ].map(card => (
-              <div key={card.label} className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 flex items-center gap-4">
+              <div key={card.label} className="bg-secondary/30 border border-border rounded-2xl p-5 flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 flex-shrink-0">
                   <span className="material-symbols-outlined text-[20px]">{card.icon}</span>
                 </div>
-                <div><p className="text-xl font-semibold text-white">{card.value}</p><p className="text-xs text-white/30 mt-0.5">{card.label}</p></div>
+                <div><p className="text-xl font-semibold text-foreground">{card.value}</p><p className="text-xs text-muted-foreground mt-0.5">{card.label}</p></div>
               </div>
             ))}
           </motion.div>
@@ -133,12 +133,12 @@ export default function PatientProfile() {
                 </div>
 
                 {/* Visit Card */}
-                <div className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 transition-all hover:bg-white/[0.05] hover:border-white/10 group-hover:shadow-[0_0_30px_rgba(99,102,241,0.05)]">
+                <div className="flex-1 bg-secondary/30 border border-border rounded-2xl p-6 transition-all hover:bg-secondary/50 group-hover:shadow-[0_0_30px_rgba(99,102,241,0.05)]">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <h4 className="text-lg font-bold text-white/90">{new Date(v.visitDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</h4>
-                      <p className="text-xs text-white/40 mt-1 flex items-center gap-2">
-                        <span className="bg-white/[0.05] px-2 py-0.5 rounded-full">{v.visitType}</span>
+                      <h4 className="text-lg font-bold text-foreground">{new Date(v.visitDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</h4>
+                      <p className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
+                        <span className="bg-secondary px-2 py-0.5 rounded-full">{v.visitType}</span>
                         <span className={`px-2 py-0.5 rounded-full ${v.status === 'Completed' ? 'text-emerald-400 bg-emerald-400/10' : 'text-amber-400 bg-amber-400/10'}`}>{v.status}</span>
                       </p>
                     </div>
@@ -157,9 +157,9 @@ export default function PatientProfile() {
                   </div>
 
                   {v.caseStudy?.chiefComplaints && (
-                    <div className="mb-4 bg-black/20 rounded-xl p-4 border border-white/[0.02]">
-                      <p className="text-xs text-white/40 uppercase tracking-widest font-bold mb-1">Chief Complaints</p>
-                      <p className="text-sm text-white/80">{v.caseStudy.chiefComplaints}</p>
+                    <div className="mb-4 bg-secondary/20 rounded-xl p-4 border border-border">
+                      <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-1">Chief Complaints</p>
+                      <p className="text-sm text-foreground/80">{v.caseStudy.chiefComplaints}</p>
                     </div>
                   )}
 

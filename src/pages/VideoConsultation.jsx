@@ -79,8 +79,20 @@ export default function VideoConsultation() {
               <span className="material-symbols-outlined text-primary text-[40px]">video_call</span>
             </div>
             <h2 className="text-xl font-semibold text-foreground mb-2">Start Video Consultation</h2>
-            <p className="text-sm text-muted-foreground mb-2">Room ID: <span className="text-foreground font-mono text-xs">{roomId}</span></p>
-            <p className="text-xs text-muted-foreground/80 mb-8">Share this room ID with your patient to join the call</p>
+            <div className="flex flex-col items-center gap-2 mb-6">
+              <p className="text-sm text-muted-foreground">Room ID: <span className="text-foreground font-mono text-xs">{roomId}</span></p>
+              <div className="flex items-center gap-2 bg-secondary/50 border border-border rounded-xl px-3 py-2 text-xs">
+                <span className="text-muted-foreground truncate max-w-[250px]">{window.location.origin}/video-consultation?room={roomId}</span>
+                <button onClick={() => { 
+                  navigator.clipboard.writeText(`${window.location.origin}/video-consultation?room=${roomId}`); 
+                  alert('Link copied!'); 
+                }}
+                className="text-primary hover:text-primary/80 flex items-center" title="Copy Link">
+                  <span className="material-symbols-outlined text-[16px]">content_copy</span>
+                </button>
+              </div>
+              <p className="text-xs text-muted-foreground/80">Share this link with your patient to join the call</p>
+            </div>
 
             {/* Camera Preview */}
             <div className="aspect-video bg-card border border-border rounded-2xl overflow-hidden mb-6 relative">

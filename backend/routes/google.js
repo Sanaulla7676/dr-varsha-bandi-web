@@ -7,7 +7,7 @@ const { authenticateToken } = require('../middleware/auth');
 // GET /api/google/auth-url - Get the consent URL
 router.get('/auth-url', authenticateToken, (req, res) => {
   try {
-    const url = getAuthUrl();
+    const url = getAuthUrl(req.user.id);
     res.json({ url });
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -3,7 +3,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const Doctor = require('../models/Doctor');
 
-const SECRET = process.env.JWT_SECRET || 'homeopathway-super-secret-jwt-key-2024';
+const ACCESS_SECRET = process.env.JWT_SECRET || 'homeopathway-super-secret-jwt-key-2024';
+const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'homeopathway-super-secret-refresh-key-2024';
 
 // POST /api/auth/login
 router.post('/login', async (req, res) => {
@@ -14,8 +15,14 @@ router.post('/login', async (req, res) => {
   if (require('mongoose').connection.readyState !== 1) {
     if (email === 'doctor@homeopathway.com' && password === 'doctor123') {
       console.log('Mock login successful');
-      const token = jwt.sign({ id: '000000000000000000000000', name: 'Dr. Varsha Bandi', email }, SECRET, { expiresIn: '7d' });
-      return res.json({ success: true, token, doctor: { id: '000000000000000000000000', name: 'Dr. Varsha Bandi', email, clinicName: 'Homeopathway Clinic' } });
+      const token = jwt.sign({ id: '000000000000000000000000', name: 'Dr. Varsha Bandi', email }, ACCESS_SECRET, { expiresIn: '15m' });
+      const refreshToken = jwt.sign({ id: '000000000000000000000000', name: 'Dr. Varsha Bandi', email }, REFRESH_SECRET, { expiresIn: '7d' });
+      return res.json({ 
+        success: true, 
+        token, 
+        refreshToken,
+        doctor: { id: '000000000000000000000000', name: 'Dr. Varsha Bandi', email, clinicName: 'Homeopathway Clinic' } 
+      });
     }
     console.log('Mock login failed: invalid credentials');
     return res.status(401).json({ success: false, message: 'Invalid credentials' });
@@ -28,14 +35,40 @@ router.post('/login', async (req, res) => {
     const isMatch = await doctor.matchPassword(password);
     if (!isMatch) return res.status(401).json({ success: false, message: 'Incorrect password' });
 
-    const token = jwt.sign({ id: doctor._id, name: doctor.name, email: doctor.email }, SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: doctor._id, name: doctor.name, email: doctor.email }, ACCESS_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ id: doctor._id, name: doctor.name, email: doctor.email }, REFRESH_SECRET, { expiresIn: '7d' });
     res.json({
       success: true,
       token,
+      refreshToken,
       doctor: { id: doctor._id, name: doctor.name, email: doctor.email, clinicName: doctor.clinicName, profilePhoto: doctor.profilePhoto }
     });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Server error', error: err.message });
+  }
+});
+
+// POST /api/auth/refresh
+router.post('/refresh', async (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    return res.status(401).json({ success: false, message: 'Refresh token required' });
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
+    
+    // Generate new Access and Refresh tokens
+    const newToken = jwt.sign({ id: decoded.id, name: decoded.name, email: decoded.email }, ACCESS_SECRET, { expiresIn: '15m' });
+    const newRefreshToken = jwt.sign({ id: decoded.id, name: decoded.name, email: decoded.email }, REFRESH_SECRET, { expiresIn: '7d' });
+
+    res.json({
+      success: true,
+      token: newToken,
+      refreshToken: newRefreshToken
+    });
+  } catch (err) {
+    return res.status(403).json({ success: false, message: 'Invalid or expired refresh token' });
   }
 });
 

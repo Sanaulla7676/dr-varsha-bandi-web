@@ -1,0 +1,43 @@
+name: Continuous Integration & Deployment Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Frontend CI Phase
+      - name: Install Frontend Dependencies
+        run: npm ci
+
+      - name: Run Vitest Unit Tests
+        run: npm run test
+
+      - name: Compile & Build Frontend Bundle
+        run: npm run build
+        env:
+          VITE_API_URL: https://mock-api.homeopathway.com/api
+
+      # Backend CI Phase
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm ci

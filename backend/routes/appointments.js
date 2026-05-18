@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/Appointment');
+const Doctor = require('../models/Doctor');
+const Patient = require('../models/Patient');
 const { authenticateToken, auditLog } = require('../middleware/auth');
+const { createMeetEvent } = require('../services/googleCalendar');
 
 // GET /api/appointments
 router.get('/', authenticateToken, async (req, res) => {

@@ -17,10 +17,32 @@ const googleRoutes = require('./routes/google');
 const { initializeWhatsApp } = require('./services/whatsapp');
 const { initializeCronJobs } = require('./services/cronJobs');
 
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+
 const app = express();
 const server = http.createServer(app);
+
+// Configure dynamic CORS allowed origins
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+  ? process.env.ALLOWED_ORIGINS.split(',') 
+  : ['http://localhost:5173', 'http://localhost:5174'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like server-to-server or postman/curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Access blocked by CORS policy'));
+    }
+  },
+  credentials: true
+};
+
 const io = new Server(server, {
-  cors: { origin: ['http://localhost:5173', 'http://localhost:5174'], methods: ['GET', 'POST'] }
+  cors: corsOptions
 });
 
 const PORT = process.env.PORT || 5000;
@@ -28,8 +50,33 @@ const PORT = process.env.PORT || 5000;
 // Connect to MongoDB
 connectDB();
 
-// Middleware
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'], credentials: true }));
+// 1. HTTP Security Hardening (Helmet)
+app.use(helmet());
+
+// 2. Rate Limiting Configurations
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per 15 minutes
+  message: { message: 'Too many requests from this IP, please try again after 15 minutes' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 15, // Limit each IP to 15 auth requests per 15 minutes
+  message: { message: 'Too many authentication attempts, please try again after 15 minutes' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply rate limiting
+app.use('/api', globalLimiter);
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
+
+// 3. Parser & Standard Middlewares
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
