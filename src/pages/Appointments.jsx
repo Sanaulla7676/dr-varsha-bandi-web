@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../components/Layout';
 import { getAppointments, createAppointment, updateAppointment, deleteAppointment, getPatients } from '../lib/api';
@@ -40,6 +40,7 @@ function Modal({ onClose, children }) {
 
 export default function Appointments() {
   const { doctor } = useAuthStore();
+  const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -52,13 +53,9 @@ export default function Appointments() {
   const handleJoinConsultation = (apt) => {
     setJoiningConsultation(apt);
     setTimeout(() => {
-      if (apt.googleMeetLink) {
-        window.open(apt.googleMeetLink, '_blank', 'width=1000,height=800');
-      } else {
-        window.open(`/video-consultation?room=${apt.videoRoomId || apt._id}`, '_blank');
-      }
+      navigate(`/video-consultation?room=${apt.videoRoomId || apt._id}&patient=${apt.patientId?._id || ''}`);
       setJoiningConsultation(null);
-    }, 2000);
+    }, 1500);
   };
 
   const fetchAll = async () => {

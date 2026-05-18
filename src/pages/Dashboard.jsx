@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
 import { getDashboardStats, getGoogleAuthUrl } from '../lib/api';
@@ -38,6 +38,7 @@ export default function Dashboard() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const { doctor, updateDoctor } = useAuthStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDashboardStats()
@@ -190,7 +191,7 @@ export default function Dashboard() {
                     </span>
                   </div>
                   {apt.type === 'Video' && apt.status !== 'Completed' && (
-                    <button onClick={() => window.open(apt.googleMeetLink || `/video-consultation?room=${apt.videoRoomId || apt._id}`, '_blank', 'width=1000,height=800')}
+                    <button onClick={() => navigate(`/video-consultation?room=${apt.videoRoomId || apt._id}&patient=${apt.patientId?._id || ''}`)}
                       className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
                       <span className="material-symbols-outlined text-[20px]">video_call</span>
                     </button>
