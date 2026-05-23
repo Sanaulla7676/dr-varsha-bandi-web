@@ -19,7 +19,14 @@ export default function VideoConsultation() {
   const [activeTab, setActiveTab] = useState('notes'); // 'notes' or 'chat'
   
   // Chat state
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(() => {
+    try {
+      const stored = localStorage.getItem(`chat-${roomId}`);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
   const [chatInput, setChatInput] = useState('');
   const socketRef = useRef(null);
   const chatEndRef = useRef(null);
@@ -37,7 +44,11 @@ export default function VideoConsultation() {
       });
 
       socketRef.current.on('chat-message', (data) => {
-        setMessages(prev => [...prev, data]);
+        setMessages(prev => {
+          const updated = [...prev, data];
+          localStorage.setItem(`chat-${roomId}`, JSON.stringify(updated));
+          return updated;
+        });
       });
 
       return () => {
@@ -81,6 +92,22 @@ export default function VideoConsultation() {
       sender: displayName
     });
     setChatInput('');
+  };
+
+  const handleSaveChat = () => {
+    localStorage.setItem(`chat-${roomId}`, JSON.stringify(messages));
+    alert('Chat history saved locally!');
+  };
+
+  const handleDownloadChat = () => {
+    const formattedChat = messages.map(msg => `[${msg.sender || 'Unknown'}]: ${msg.message}`).join('\n');
+    const element = document.createElement("a");
+    const file = new Blob([formattedChat], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = `Consultation-Chat-${roomId}.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   };
 
   return (
@@ -194,6 +221,16 @@ export default function VideoConsultation() {
                     )}
                     <div ref={chatEndRef} />
                   </div>
+                  {messages.length > 0 && (
+                    <div className="flex gap-2 mb-3">
+                      <button type="button" onClick={handleSaveChat} className="flex-1 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-xs font-medium transition-colors border border-primary/20 flex justify-center items-center gap-1 shadow-sm">
+                        <span className="material-symbols-outlined text-[14px]">save</span> Save Chat
+                      </button>
+                      <button type="button" onClick={handleDownloadChat} className="flex-1 py-2 bg-secondary hover:bg-secondary/80 text-foreground rounded-lg text-xs font-medium transition-colors border border-border flex justify-center items-center gap-1 shadow-sm">
+                        <span className="material-symbols-outlined text-[14px]">download</span> Download Chat
+                      </button>
+                    </div>
+                  )}
                   <form onSubmit={handleSendMessage} className="flex gap-2 mt-auto">
                     <input 
                       type="text" 
