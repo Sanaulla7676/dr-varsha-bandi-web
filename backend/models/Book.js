@@ -10,9 +10,15 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // path now stores the full Cloudinary URL (or local path as fallback)
   path: {
     type: String,
     required: true,
+  },
+  // cloudinary_id stores the public_id for deletion
+  cloudinary_id: {
+    type: String,
+    default: null,
   },
   mimetype: {
     type: String,

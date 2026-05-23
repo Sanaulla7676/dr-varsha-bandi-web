@@ -314,7 +314,7 @@ export default function BooksDashboard() {
                     {/* Actions */}
                     <div className="flex gap-2 border-t border-border pt-3">
                       <a
-                        href={`${API_BASE}${book.path}`}
+                        href={book.path && book.path.startsWith('http') ? book.path : `${API_BASE}${book.path}`}
                         target="_blank"
                         rel="noreferrer"
                         className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 bg-primary/10 hover:bg-primary/20 rounded-lg py-2 transition-colors"
