@@ -20,6 +20,7 @@ import Notifications from './pages/Notifications';
 import PrescriptionDashboard from './pages/PrescriptionDashboard';
 import ReportsDashboard from './pages/ReportsDashboard';
 import MedicalRecordsRepository from './pages/MedicalRecordsRepository';
+import BooksDashboard from './pages/BooksDashboard';
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1, staleTime: 30000 } }
@@ -81,6 +82,7 @@ function App() {
               <Route path="/prescriptions" element={<ProtectedRoute><PrescriptionDashboard /></ProtectedRoute>} />
               <Route path="/reports" element={<ProtectedRoute><ReportsDashboard /></ProtectedRoute>} />
               <Route path="/medical-records" element={<ProtectedRoute><MedicalRecordsRepository /></ProtectedRoute>} />
+              <Route path="/books" element={<ProtectedRoute><BooksDashboard /></ProtectedRoute>} />
 
               {/* Legacy redirects */}
               <Route path="/dashboard-appointments" element={<Navigate to="/appointments" replace />} />

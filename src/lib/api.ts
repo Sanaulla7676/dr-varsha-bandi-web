@@ -99,4 +99,10 @@ export const deleteAppointment = (id: string) => api.delete(`/appointments/${id}
 // Google API
 export const getGoogleAuthUrl = () => api.get('/google/auth-url');
 
+// Books API
+export const getBooks = (params?: any) => api.get('/books', { params });
+export const uploadBook = (formData: FormData) => api.post('/books/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+export const renameBook = (id: string, title: string) => api.put(`/books/${id}`, { title });
+export const deleteBook = (id: string) => api.delete(`/books/${id}`);
+
 export default api;

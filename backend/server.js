@@ -4,6 +4,7 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 const connectDB = require('./config/db');
+const path = require('path');
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -12,6 +13,7 @@ const visitRoutes = require('./routes/visits');
 const appointmentRoutes = require('./routes/appointments');
 const dashboardRoutes = require('./routes/dashboard');
 const googleRoutes = require('./routes/google');
+const bookRoutes = require('./routes/books');
 
 // Background Services
 const { initializeWhatsApp } = require('./services/whatsapp');
@@ -80,6 +82,9 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+// Static files for book uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
@@ -87,6 +92,7 @@ app.use('/api/visits', visitRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/google', googleRoutes);
+app.use('/api/books', bookRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date() }));

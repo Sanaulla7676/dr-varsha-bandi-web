@@ -10,6 +10,7 @@ const navItems = [
   { icon: 'video_call', label: 'Video Consult', to: '/video-consultation' },
   { icon: 'description', label: 'Prescriptions', to: '/prescriptions' },
   { icon: 'folder_open', label: 'Reports', to: '/reports' },
+  { icon: 'menu_book', label: 'Books', to: '/books' },
   { icon: 'notifications', label: 'Notifications', to: '/notifications' },
   { icon: 'settings', label: 'Settings', to: '/settings' },
 ];
