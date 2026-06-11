@@ -116,20 +116,34 @@ export default function Notifications() {
   const { notifications: storeNotifications, clearNotifications: clearStoreNotifications } = useUIStore();
   
   // Combine store notifications with initial mock data
-  const [items, setItems] = useState(() => {
-    const formattedStore = storeNotifications.map((n, index) => ({
-      id: `store-${index}`,
-      type: n.type || 'system',
-      title: n.title || 'Notification',
-      message: n.message || '',
-      time: n.time || 'Just now',
-      read: Boolean(n.read),
-      actionText: n.actionText,
-      actionLink: n.actionLink,
-      priority: n.priority || 'low'
-    }));
-    return [...formattedStore, ...INITIAL_NOTIFICATIONS];
-  });
+  const formatStoreNotifications = (notifications) => notifications.map((n, index) => ({
+    id: n.id || `store-${index}`,
+    type: n.type || 'system',
+    title: n.title || 'Notification',
+    message: n.message || '',
+    time: n.time || 'Just now',
+    read: Boolean(n.read),
+    actionText: n.actionText,
+    actionLink: n.actionLink,
+    priority: n.priority || 'low'
+  }));
+
+  const [items, setItems] = useState(() => [
+    ...formatStoreNotifications(storeNotifications),
+    ...INITIAL_NOTIFICATIONS
+  ]);
+
+  // Sync state when store notifications change
+  React.useEffect(() => {
+    setItems(prev => {
+      // Find notifications in store that aren't in local state yet
+      const newItems = formatStoreNotifications(storeNotifications).filter(
+        sn => !prev.some(p => p.id === sn.id)
+      );
+      if (newItems.length === 0) return prev;
+      return [...newItems, ...prev];
+    });
+  }, [storeNotifications]);
 
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');

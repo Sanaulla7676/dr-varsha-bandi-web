@@ -14,6 +14,7 @@ const appointmentRoutes = require('./routes/appointments');
 const dashboardRoutes = require('./routes/dashboard');
 const googleRoutes = require('./routes/google');
 const bookRoutes = require('./routes/books');
+const publicRoutes = require('./routes/public');
 
 // Background Services
 const { initializeWhatsApp } = require('./services/whatsapp');
@@ -32,12 +33,16 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like server-to-server or postman/curl)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+    // Allow requests with no origin (like file://, mobile apps, or server-to-server)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
       callback(null, true);
     } else {
-      callback(new Error('Access blocked by CORS policy'));
+      // In development, be more permissive to allow testing from different local ports/files
+      if (process.env.NODE_ENV === 'development') {
+        callback(null, true);
+      } else {
+        callback(new Error('Access blocked by CORS policy'));
+      }
     }
   },
   credentials: true
@@ -93,6 +98,7 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/google', googleRoutes);
 app.use('/api/books', bookRoutes);
+app.use('/api/public', publicRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date() }));
