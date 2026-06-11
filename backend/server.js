@@ -136,6 +136,24 @@ io.on('connection', (socket) => {
     io.to(roomId).emit('chat-message', { message, sender, time: new Date() });
   });
 
+  // Patient requests video consultation
+  socket.on('patient-request-consultation', (data) => {
+    const notification = {
+      id: `req-${Date.now()}`,
+      type: 'appointment',
+      title: 'Video Consultation Requested',
+      message: `${data.name || 'A patient'} is requesting a video consultation right now.`,
+      time: 'Just now',
+      read: false,
+      priority: 'high',
+      actionText: 'Open Consultations',
+      actionLink: '/appointments'
+    };
+    // Broadcast to all connected clients (mainly the doctor's dashboard)
+    io.emit('new-notification', notification);
+    console.log(`Notification sent: Consultation request from ${data.name || 'patient'}`);
+  });
+
   // Disconnect
   socket.on('disconnect', () => {
     for (const roomId in rooms) {

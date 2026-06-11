@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from './Sidebar';
 import TopBar from './TopBar';
 import { useUIStore } from '../store';
 import { motion } from 'framer-motion';
+import { io } from 'socket.io-client';
+
+const SOCKET_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
 
 export default function Layout({ children, title }) {
-  const { sidebarCollapsed } = useUIStore();
+  const { sidebarCollapsed, addNotification } = useUIStore();
+
+  useEffect(() => {
+    const socket = io(SOCKET_URL);
+
+    socket.on('new-notification', (notification) => {
+      console.log('New real-time notification received:', notification);
+      addNotification(notification);
+      
+      // Browser notification fallback
+      if (Notification.permission === 'granted') {
+        new Notification(notification.title, { body: notification.message });
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission();
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [addNotification]);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex transition-colors duration-300">

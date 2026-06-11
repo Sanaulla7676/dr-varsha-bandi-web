@@ -35,7 +35,7 @@ export default function VideoConsultation() {
     if (inCall) {
       socketRef.current = io(SOCKET_URL);
       
-      const displayName = doctor ? `Dr. ${doctor.lastName || doctor.name}` : 'Doctor';
+      const displayName = doctor?.name || 'Doctor';
 
       socketRef.current.emit('join-room', { 
         roomId: `homeopathway-${roomId}`, 
@@ -83,14 +83,26 @@ export default function VideoConsultation() {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    if (!chatInput.trim() || !socketRef.current) return;
+    if (!chatInput.trim()) return;
 
-    const displayName = doctor ? `Dr. ${doctor.lastName || doctor.name}` : 'Doctor';
-    socketRef.current.emit('chat-message', {
+    const displayName = doctor?.name || 'Doctor';
+    const msgData = {
       roomId: `homeopathway-${roomId}`,
       message: chatInput,
       sender: displayName
-    });
+    };
+
+    if (socketRef.current?.connected) {
+      socketRef.current.emit('chat-message', msgData);
+    } else {
+      // Offline fallback: echo message locally
+      const localMsg = { message: chatInput, sender: displayName, time: new Date() };
+      setMessages(prev => {
+        const updated = [...prev, localMsg];
+        localStorage.setItem(`chat-${roomId}`, JSON.stringify(updated));
+        return updated;
+      });
+    }
     setChatInput('');
   };
 
@@ -207,7 +219,7 @@ export default function VideoConsultation() {
                       </div>
                     ) : (
                       messages.map((msg, idx) => {
-                        const displayName = doctor ? `Dr. ${doctor.lastName || doctor.name}` : 'Doctor';
+                        const displayName = doctor?.name || 'Doctor';
                         const isMe = msg.sender === displayName;
                         return (
                           <div key={idx} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
@@ -266,7 +278,7 @@ export default function VideoConsultation() {
                 SHOW_CHROME_EXTENSION_BANNER: false,
               }}
               userInfo={{
-                displayName: doctor ? `Dr. ${doctor.lastName || doctor.name}` : 'Doctor'
+                displayName: doctor?.name || 'Doctor'
               }}
               getIFrameRef={(iframeRef) => { iframeRef.style.height = '100%'; }}
               onReadyToClose={() => setInCall(false)}
