@@ -15,6 +15,7 @@ services:
       - key: PUPPETEER_SKIP_DOWNLOAD
         value: "true"
       - key: MONGODB_URI
+        value: "mongodb+srv://sanaullaa19_db_user:<REPLACE_WITH_PASSWORD>@cluster0.pzskqem.mongodb.net/?appName=Cluster0"
         sync: false
       - key: GOOGLE_CLIENT_ID
         sync: false

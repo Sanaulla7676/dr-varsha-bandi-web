@@ -100,7 +100,15 @@ app.use('/api/books', bookRoutes);
 app.use('/api/public', publicRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date() }));
+// Health check with DB status
+app.get('/api/health', (req, res) => {
+  const dbStatus = require('mongoose').connection.readyState === 1 ? 'Connected' : 'Disconnected';
+  res.json({ 
+    status: 'ok', 
+    database: dbStatus,
+    time: new Date() 
+  });
+});
 
 // ========================================
 // SOCKET.IO - WebRTC Video Signaling
