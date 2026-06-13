@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npm config set puppeteer_skip_download true",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
