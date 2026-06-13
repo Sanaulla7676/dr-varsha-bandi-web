@@ -42,25 +42,8 @@ router.get('/stats', authenticateToken, async (req, res) => {
       upcomingAppointments,
     });
   } catch (err) {
-    // Return mock data when DB is not connected
-    res.json({
-      totalPatients: 248,
-      todayAppointments: 12,
-      pendingFollowUps: 8,
-      upcomingVideoConsultations: 4,
-      recentPatients: [
-        { _id: '1', patientId: 'HP0001', firstName: 'Rahul', lastName: 'Sharma', phone: '9876543210', lastVisitDate: new Date(), status: 'Active' },
-        { _id: '2', patientId: 'HP0002', firstName: 'Priya', lastName: 'Patel', phone: '9876543211', lastVisitDate: new Date(), status: 'Active' },
-        { _id: '3', patientId: 'HP0003', firstName: 'Amit', lastName: 'Kumar', phone: '9876543212', lastVisitDate: new Date(), status: 'Active' },
-        { _id: '4', patientId: 'HP0004', firstName: 'Sneha', lastName: 'Reddy', phone: '9876543213', lastVisitDate: new Date(), status: 'Active' },
-        { _id: '5', patientId: 'HP0005', firstName: 'Vikram', lastName: 'Singh', phone: '9876543214', lastVisitDate: new Date(), status: 'Inactive' },
-      ],
-      upcomingAppointments: [
-        { _id: 'a1', appointmentTime: '09:30 AM', type: 'In-Person', status: 'Confirmed', patientId: { firstName: 'Rahul', lastName: 'Sharma', phone: '9876543210' } },
-        { _id: 'a2', appointmentTime: '11:00 AM', type: 'Video', status: 'Pending', patientId: { firstName: 'Priya', lastName: 'Patel', phone: '9876543211' } },
-        { _id: 'a3', appointmentTime: '02:30 PM', type: 'Follow-Up', status: 'Confirmed', patientId: { firstName: 'Amit', lastName: 'Kumar', phone: '9876543212' } },
-      ],
-    });
+    console.error('Dashboard Stats Error:', err);
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
