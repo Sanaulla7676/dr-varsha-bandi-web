@@ -33,19 +33,18 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like file://, mobile apps, or server-to-server)
+    // Allow all origins for the public API to avoid CORS blocks in different environments
+    // or you can restrict it to the specific allowedOrigins list
     if (!origin || allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
       callback(null, true);
     } else {
-      // In development, be more permissive to allow testing from different local ports/files
-      if (process.env.NODE_ENV === 'development') {
-        callback(null, true);
-      } else {
-        callback(new Error('Access blocked by CORS policy'));
-      }
+      // For public website traffic, we are more permissive
+      callback(null, true);
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 const io = new Server(server, {
