@@ -5,7 +5,7 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 const connectDB = async () => {
 
   try {
-    const uri = 'mongodb+srv://sanaulla7676:Suhail%4008@cluster0.pzskqem.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+    const uri = 'mongodb+srv://sanaullaa19_db_user:Suhail%4008@cluster0.pzskqem.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
     const conn = await mongoose.connect(uri);
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (err) {
