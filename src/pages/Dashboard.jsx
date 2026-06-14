@@ -37,13 +37,17 @@ const statusColors = {
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const { doctor, updateDoctor } = useAuthStore();
   const navigate = useNavigate();
 
   useEffect(() => {
     getDashboardStats()
       .then((res) => setStats(res.data))
-      .catch(() => {})
+      .catch((err) => {
+        setError(true);
+        console.error(err);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -69,12 +73,18 @@ export default function Dashboard() {
           <p className="text-lg text-muted-foreground mt-1">Your clinic summary is ready for today.</p>
         </motion.div>
 
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/20 text-red-500 px-6 py-4 rounded-2xl text-sm font-medium">
+            Failed to load live clinic data. Please check your database connection or backend status.
+          </div>
+        )}
+
         {/* Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <StatCard icon="group" label="Total Patients" value={loading ? '—' : stats?.totalPatients ?? 248} color="bg-primary/10 text-primary" delay={0.05} />
-          <StatCard icon="calendar_today" label="Today's Appointments" value={loading ? '—' : stats?.todayAppointments ?? 12} color="bg-primary/10 text-primary" delay={0.1} />
-          <StatCard icon="history" label="Pending Follow-ups" value={loading ? '—' : stats?.pendingFollowUps ?? 8} sub="Requires review" color="bg-amber-500/10 text-amber-500" delay={0.15} />
-          <StatCard icon="video_call" label="Video Consultations" value={loading ? '—' : stats?.upcomingVideoConsultations ?? 4} sub="Upcoming today" color="bg-emerald-500/10 text-emerald-500" delay={0.2} />
+          <StatCard icon="group" label="Total Patients" value={loading ? '—' : stats?.totalPatients ?? 0} color="bg-primary/10 text-primary" delay={0.05} />
+          <StatCard icon="calendar_today" label="Today's Appointments" value={loading ? '—' : stats?.todayAppointments ?? 0} color="bg-primary/10 text-primary" delay={0.1} />
+          <StatCard icon="history" label="Pending Follow-ups" value={loading ? '—' : stats?.pendingFollowUps ?? 0} sub="Requires review" color="bg-amber-500/10 text-amber-500" delay={0.15} />
+          <StatCard icon="video_call" label="Video Consultations" value={loading ? '—' : stats?.upcomingVideoConsultations ?? 0} sub="Upcoming today" color="bg-emerald-500/10 text-emerald-500" delay={0.2} />
         </div>
 
         {/* Main Content Grid */}

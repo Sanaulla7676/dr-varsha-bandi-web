@@ -19,11 +19,7 @@ const TYPE_COLORS = {
   'Follow-Up': 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20',
 };
 
-const MOCK_APPTS = [
-  { _id: 'a1', appointmentDate: new Date(), appointmentTime: '09:30 AM', type: 'In-Person', status: 'Confirmed', notes: '', patientId: { _id: '1', firstName: 'Rahul', lastName: 'Sharma', phone: '9876543210' } },
-  { _id: 'a2', appointmentDate: new Date(), appointmentTime: '11:00 AM', type: 'Video', status: 'Pending', notes: '', patientId: { _id: '2', firstName: 'Priya', lastName: 'Patel', phone: '9876543211' } },
-  { _id: 'a3', appointmentDate: new Date(), appointmentTime: '02:30 PM', type: 'Follow-Up', status: 'Completed', notes: '', patientId: { _id: '3', firstName: 'Amit', lastName: 'Kumar', phone: '9876543212' } },
-];
+// Mock data removed
 
 function Modal({ onClose, children }) {
   return (
@@ -43,6 +39,7 @@ export default function Appointments() {
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [patients, setPatients] = useState([]);
   const [form, setForm] = useState({ patientId: '', appointmentDate: new Date().toISOString().split('T')[0], appointmentTime: '10:00 AM', type: 'In-Person', status: 'Pending', notes: '' });
@@ -60,39 +57,36 @@ export default function Appointments() {
 
   const fetchAll = async () => {
     setLoading(true);
+    setError(false);
     try {
       const { data } = await getAppointments(filterStatus ? { status: filterStatus } : {});
       setAppointments(data);
-    } catch { setAppointments(MOCK_APPTS); }
+    } catch (err) {
+      console.error(err);
+      setError(true);
+      setAppointments([]);
+    }
     finally { setLoading(false); }
   };
 
   useEffect(() => { fetchAll(); }, [filterStatus]);
 
   useEffect(() => {
-    getPatients({ limit: 100 }).then(({ data }) => setPatients(data.patients || [])).catch(() => {
-      setPatients([
-        { _id: '1', firstName: 'Rahul', lastName: 'Sharma' },
-        { _id: '2', firstName: 'Priya', lastName: 'Patel' },
-        { _id: '3', firstName: 'Amit', lastName: 'Kumar' },
-      ]);
+    getPatients({ limit: 100 }).then(({ data }) => setPatients(data.patients || [])).catch((err) => {
+      console.error(err);
+      setPatients([]);
     });
   }, []);
 
   const handleSave = async () => {
     setSaving(true);
-    try { await createAppointment(form); setShowModal(false); fetchAll(); }
-    catch {
-      const isGoogleConnected = doctor?.googleTokens?.refresh_token;
-      const newApt = {
-        _id: Date.now().toString(),
-        ...form,
-        patientId: patients.find(p => p._id === form.patientId) || { firstName: 'New', lastName: 'Patient', phone: '9876543210' },
-        googleMeetLink: null,
-        videoRoomId: form.type === 'Video' ? `hp-room-${Date.now()}` : null
-      };
+    try {
+      await createAppointment(form);
       setShowModal(false);
-      setAppointments(prev => [newApt, ...prev]);
+      fetchAll();
+    } catch (err) {
+      console.error("Failed to create appointment:", err);
+      alert("Failed to create appointment. Please try again.");
     }
     finally { setSaving(false); }
   };

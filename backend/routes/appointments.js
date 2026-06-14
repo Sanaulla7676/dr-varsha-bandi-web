@@ -6,11 +6,28 @@ const Patient = require('../models/Patient');
 const { authenticateToken, auditLog } = require('../middleware/auth');
 const { createMeetEvent } = require('../services/googleCalendar');
 
+const mongoose = require('mongoose');
+
+// Helper to resolve Doctor ID dynamically
+async function resolveDoctorId(user) {
+  if (user && user.id && mongoose.Types.ObjectId.isValid(user.id) && user.id !== '000000000000000000000000') {
+    return new mongoose.Types.ObjectId(user.id);
+  }
+  if (user && user.email) {
+    const doctor = await Doctor.findOne({ email: user.email });
+    if (doctor) return doctor._id;
+  }
+  const fallback = await Doctor.findOne({ email: 'doctor@homeopathway.com' }) || await Doctor.findOne();
+  if (fallback) return fallback._id;
+  return new mongoose.Types.ObjectId(user.id || '000000000000000000000000');
+}
+
 // GET /api/appointments
 router.get('/', authenticateToken, async (req, res) => {
   try {
     const { date, status, type } = req.query;
-    const query = { doctorId: req.user.id };
+    const resolvedDoctorId = await resolveDoctorId(req.user);
+    const query = { doctorId: resolvedDoctorId };
 
     if (date) {
       const d = new Date(date);
@@ -39,8 +56,10 @@ router.get('/today', authenticateToken, async (req, res) => {
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
+    const resolvedDoctorId = await resolveDoctorId(req.user);
+
     const appointments = await Appointment.find({
-      doctorId: req.user.id,
+      doctorId: resolvedDoctorId,
       appointmentDate: { $gte: today, $lt: tomorrow },
     }).populate('patientId', 'firstName lastName phone patientId').sort({ appointmentTime: 1 });
 
@@ -54,7 +73,8 @@ router.get('/today', authenticateToken, async (req, res) => {
 router.post('/', authenticateToken, auditLog('Appointment Created', 'Appointment'), async (req, res) => {
   try {
     const { patientId, appointmentDate, appointmentTime, type, notes } = req.body;
-    const doctor = await Doctor.findById(req.user.id);
+    const resolvedDoctorId = await resolveDoctorId(req.user);
+    const doctor = await Doctor.findById(resolvedDoctorId);
     const patient = await Patient.findById(patientId);
 
     let googleMeetLink = null;
@@ -84,7 +104,7 @@ router.post('/', authenticateToken, auditLog('Appointment Created', 'Appointment
 
     const appointment = await Appointment.create({
       ...req.body,
-      doctorId: req.user.id,
+      doctorId: resolvedDoctorId,
       googleMeetLink,
       googleCalendarEventId,
       videoRoomId

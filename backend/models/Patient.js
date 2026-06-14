@@ -22,12 +22,11 @@ const patientSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Auto-generate patient ID
-patientSchema.pre('save', async function(next) {
+patientSchema.pre('save', async function() {
   if (!this.patientId) {
     const count = await mongoose.model('Patient').countDocuments();
     this.patientId = `HP${String(count + 1).padStart(4, '0')}`;
   }
-  next();
 });
 
 patientSchema.virtual('fullName').get(function() {
