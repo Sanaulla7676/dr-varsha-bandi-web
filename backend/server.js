@@ -89,6 +89,10 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // Static files for book uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// ─── Serve the public website (Dr. Varsha Bandi landing page) ───
+// Accessible at: http://localhost:5000/site/
+app.use('/site', express.static(path.join(__dirname, '..', 'public-site')));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);

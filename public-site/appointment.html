@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment – Dr. Varsha Bandi's Homeopathy</title>
+  <meta name="description" content="Book an in-person or video consultation with Dr. Varsha Bandi. Select your preferred date, time slot, and service. Easy online booking." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ====== NAVBAR ====== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">✦</div>
+      <div>
+        <span class="logo-name">Dr. Varsha Bandi</span>
+        <span class="logo-tagline">Homoeopath & Wellness Expert</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.html#about" class="nav-link">About</a></li>
+      <li><a href="index.html#specialities" class="nav-link">Treatments</a></li>
+      <li><a href="video-consultation.html" class="nav-link">Video Consultation</a></li>
+      <li><a href="index.html#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="appointment.html" class="btn-primary nav-cta">Book Appointment</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ====== PAGE ====== -->
+<main class="appt-page">
+
+  <!-- Header -->
+  <div class="appt-header">
+    <div class="section-label" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);color:white;margin-bottom:16px;">Schedule Your Consultation</div>
+    <h1>Book Your Appointment</h1>
+    <p>Embark on your journey to holistic wellness. Choose your preferred consultation mode and find a time that works best for you.</p>
+  </div>
+
+  <!-- Body -->
+  <div class="appt-body">
+    <div class="container">
+      <div class="appt-grid">
+
+        <!-- Left: Multi-Step Form -->
+        <div class="appt-form-card">
+
+          <!-- Step 1: Service -->
+          <div class="form-section" id="step-service">
+            <div class="form-step">
+              <span class="material-icons-round" style="font-size:14px">looks_one</span>
+              Step 1 of 3
+            </div>
+            <h2>Choose Service</h2>
+            <p>Select your preferred consultation type</p>
+            <div class="service-cards">
+              <div class="service-card selected" data-service="In-Person" data-fee="₹500" onclick="selectService(this)">
+                <div class="service-card-icon"><span class="material-icons-round">local_hospital</span></div>
+                <h4>In-Person Visit</h4>
+                <p>Visit us at Pattegar Palya, Bengaluru</p>
+                <div class="fee">₹500</div>
+              </div>
+              <div class="service-card" data-service="Video" data-fee="₹400" onclick="selectService(this)">
+                <div class="service-card-icon"><span class="material-icons-round">videocam</span></div>
+                <h4>Video Consultation</h4>
+                <p>Online consultation via secure link</p>
+                <div class="fee">₹400</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Date & Time -->
+          <div class="form-section" id="step-datetime">
+            <div class="form-step">
+              <span class="material-icons-round" style="font-size:14px">looks_two</span>
+              Step 2 of 3
+            </div>
+            <h2>Select Date &amp; Time</h2>
+            <p>Choose a convenient date and time slot</p>
+
+            <!-- Calendar -->
+            <div class="calendar-nav">
+              <button class="cal-nav-btn" id="prevMonth" onclick="changeMonth(-1)">&#8249;</button>
+              <div>
+                <div class="cal-month-label" id="calMonthLabel">June 2026</div>
+                <div style="display:flex;gap:8px;margin-top:6px;justify-content:center">
+                  <select id="yearSelect" style="border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:0.8rem;font-family:var(--font-sans);color:var(--text);cursor:pointer" onchange="onYearChange()"></select>
+                  <select id="monthSelect" style="border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:0.8rem;font-family:var(--font-sans);color:var(--text);cursor:pointer" onchange="onMonthChange()">
+                    <option value="0">January</option><option value="1">February</option><option value="2">March</option>
+                    <option value="3">April</option><option value="4">May</option><option value="5">June</option>
+                    <option value="6">July</option><option value="7">August</option><option value="8">September</option>
+                    <option value="9">October</option><option value="10">November</option><option value="11">December</option>
+                  </select>
+                </div>
+              </div>
+              <button class="cal-nav-btn" id="nextMonth" onclick="changeMonth(1)">&#8250;</button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+
+            <!-- Time Slots -->
+            <div style="margin-top:28px">
+              <div class="time-group">
+                <div class="time-group-label">🌅 Morning</div>
+                <div class="time-slots" id="morning-slots"></div>
+              </div>
+              <div class="time-group">
+                <div class="time-group-label">☀️ Afternoon</div>
+                <div class="time-slots" id="afternoon-slots"></div>
+              </div>
+              <div class="time-group">
+                <div class="time-group-label">🌇 Evening</div>
+                <div class="time-slots" id="evening-slots"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Patient Info -->
+          <div class="form-section" id="step-patient">
+            <div class="form-step">
+              <span class="material-icons-round" style="font-size:14px">looks_3</span>
+              Step 3 of 3
+            </div>
+            <h2>Patient Information</h2>
+            <p>Please fill in your details to complete the booking</p>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="patientName">Full Name *</label>
+                  <input type="text" id="patientName" name="name" placeholder="Your full name" required />
+                </div>
+                <div class="form-group">
+                  <label for="patientPhone">Phone Number *</label>
+                  <input type="tel" id="patientPhone" name="phone" placeholder="+91 98765 43210" required />
+                </div>
+                <div class="form-group">
+                  <label for="patientEmail">Email Address *</label>
+                  <input type="email" id="patientEmail" name="email" placeholder="your@email.com" required />
+                </div>
+                <div class="form-group">
+                  <label for="patientAge">Age</label>
+                  <input type="number" id="patientAge" name="age" placeholder="Your age" min="1" max="120" />
+                </div>
+                <div class="form-group full">
+                  <label for="chiefComplaint">Chief Complaint / Symptoms</label>
+                  <textarea id="chiefComplaint" name="complaint" placeholder="Briefly describe your main health concern..."></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right: Summary Sidebar -->
+        <div>
+          <div class="appt-summary-card">
+            <div class="summary-header">
+              <h3>Booking Summary</h3>
+              <p>Review your appointment details</p>
+            </div>
+            <div class="summary-body">
+              <div class="summary-line">
+                <span class="label">Service</span>
+                <span class="value" id="sum-service">In-Person Visit</span>
+              </div>
+              <div class="summary-line">
+                <span class="label">Date</span>
+                <span class="value" id="sum-date">Not selected</span>
+              </div>
+              <div class="summary-line">
+                <span class="label">Time</span>
+                <span class="value" id="sum-time">Not selected</span>
+              </div>
+              <div class="summary-line">
+                <span class="label">Consultation Fee</span>
+                <span class="value" id="sum-fee" style="color:var(--primary)">₹500</span>
+              </div>
+              <div class="summary-line">
+                <span class="label">Doctor</span>
+                <span class="value">Dr. Varsha Bandi<br/><small style="font-weight:400;color:var(--text-muted)">BHMS, MD (Hom)</small></span>
+              </div>
+            </div>
+            <div class="summary-trust">
+              <div class="trust-item"><span class="material-icons-round">lock</span> Secure Booking — Data encrypted &amp; safe</div>
+              <div class="trust-item"><span class="material-icons-round">privacy_tip</span> Confidentiality Guaranteed</div>
+              <div class="trust-item"><span class="material-icons-round">verified</span> 15+ Years Experience</div>
+            </div>
+            <div class="confirm-btn-wrap">
+              <button class="btn-primary" id="confirmBtn" onclick="submitBooking(event)">
+                <span class="material-icons-round">check_circle</span>
+                Confirm Appointment
+              </button>
+              <p class="confirm-tnc">By clicking confirm, you agree to our <a href="#" style="color:var(--primary)">Terms of Service</a>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ====== SUCCESS MODAL ====== -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-icon">
+      <span class="material-icons-round">check</span>
+    </div>
+    <h2>Appointment Booked!</h2>
+    <p>Your appointment with Dr. Varsha Bandi has been successfully requested.</p>
+    <div class="modal-id" id="modalId">APT-000000</div>
+    <p id="modalDetails" style="font-size:0.85rem;color:var(--text-muted)"></p>
+    <div class="modal-actions">
+      <a href="index.html" class="btn-outline">Back to Home</a>
+      <button class="btn-primary" onclick="closeModal()">
+        <span class="material-icons-round">calendar_month</span>
+        Book Another
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">✦</div>
+          <div>
+            <span class="logo-name">Dr. Varsha Bandi</span>
+            <span class="logo-tagline">Homoeopath &amp; Wellness Expert</span>
+          </div>
+        </a>
+        <p class="footer-desc">Dedicated to providing compassionate, holistic healing. Trusted by 8,000+ patients.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About Doctor</a></li>
+          <li><a href="video-consultation.html">Video Consultation</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Dr. Varsha Bandi's Homeopathy Clinic. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/appointment.js"></script>
+</body>
+</html>

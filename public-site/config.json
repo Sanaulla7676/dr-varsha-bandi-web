@@ -1,0 +1,4 @@
+{
+  "api_base": "http://localhost:5000/api",
+  "notes": "Change api_base to your deployed backend URL when going live. Example: https://homeopathway-backend.onrender.com/api"
+}
