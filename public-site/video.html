@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Video Consultation | Dr. Varsha Bandi</title>
+  
+  <!-- Tailwind CSS & Icon Fonts -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Custom Styling Rules -->
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'teal-primary': '#086b6a',
+            'teal-secondary': '#044e4d',
+            'teal-accent': '#f0fafa'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-main text-gray-800 dark:bg-[#0b1515] dark:text-gray-100 antialiased selection:bg-teal-primary selection:text-white">
+
+  <!-- BEGIN: TopBar -->
+  <div class="bg-[#044e4d] dark:bg-[#033635] text-white py-2.5 px-4 md:px-10 text-xs md:text-sm shadow-sm transition-all" data-purpose="top-bar">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <div class="flex flex-wrap justify-center md:justify-start gap-4">
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">phone_in_talk</span>
+          +91 9902684355 / 9481738539
+        </span>
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">mail</span>
+          drvarshabandi82@gmail.com
+        </span>
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">location_on</span>
+          #102, Nithya Habitat, Sanjivani Nagar, Bengaluru
+        </span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="tel:+919902684355" class="bg-red-600 hover:bg-red-700 text-white rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-md shadow-red-900/10 flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">emergency</span> Emergency Call
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- END: TopBar -->
+
+  <!-- BEGIN: MainHeader -->
+  <header class="sticky top-0 z-50 glass-panel shadow-[0_4px_30px_rgba(8,107,106,0.03)] border-b border-[#086b6a]/10">
+    <nav class="max-w-7xl mx-auto px-4 md:px-10 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 group" data-purpose="logo">
+        <div class="relative w-11 h-11 bg-white rounded-xl shadow-inner border border-teal-100 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
+          <img alt="Dr. Varsha Bandi Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe68SlGmD9lamoEBpSR190TzURLMwPjMI8DpPVjzNAOH-YdjfDie4SFW2hej50y7DYKuwHn3o1TJNzL3kRfgi0S1dZc7do9R_trNFYWckUechGXqL0PGj5Qfxio1ekV54UlmpC_aTifK9L_xvqWUj4uQQQt8d0ErSzWf_gBmEpqC2lLl4h-33wAaMTYm_FH1V3jO41l7bsmI7yTINm1Uax6Mxh63jtZwvgiyoAbwhAt8T-GmBqGgWHK4bHfqhXI1zkZHhOrGMXAqOm" style="object-position: 0 0; clip-path: inset(20px 850px 850px 40px); transform: scale(1.8) translate(8px, 8px);"/>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-[#086b6a] dark:text-teal-400 leading-tight tracking-tight">Dr. Varsha Bandi</h1>
+          <p class="text-[9px] uppercase tracking-widest font-extrabold text-gray-400 dark:text-gray-500">Homoeopath &amp; Wellness Expert</p>
+        </div>
+      </a>
+      
+      <!-- Desktop Nav Menu Links -->
+      <div class="hidden lg:flex items-center gap-8">
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html">Home</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html#about">About Doctor</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html#specialties">Specialities</a>
+        <a class="text-teal-primary font-bold text-sm border-b-2 border-teal-primary pb-1" href="video.html">Video Consultation</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html#testimonials">Testimonials</a>
+        
+        <!-- Theme Toggle Switcher -->
+        <button class="theme-toggle-btn p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon material-symbols-outlined">dark_mode</span>
+        </button>
+
+        <a href="appointment.html" class="bg-teal-primary hover:bg-teal-secondary text-white px-5 py-2 rounded-xl font-bold text-sm transition-all duration-300 shadow-md shadow-teal-900/10 hover:shadow-teal-900/20 hover:-translate-y-0.5">
+          Book Appointment
+        </a>
+      </div>
+
+      <!-- Mobile Nav Buttons -->
+      <div class="flex items-center gap-3 lg:hidden">
+        <button class="theme-toggle-btn p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon material-symbols-outlined">dark_mode</span>
+        </button>
+        <button class="mobile-menu-btn text-teal-primary dark:text-teal-400 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition" aria-label="Open navigation menu">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <!-- END: MainHeader -->
+
+  <!-- BEGIN: Mobile Menu Drawer Overlay -->
+  <div class="mobile-menu-drawer fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-[#111f1e] shadow-2xl border-l border-teal-950/10 transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between">
+    <div>
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <h3 class="font-bold text-[#086b6a] dark:text-teal-400">Navigation Menu</h3>
+        </div>
+        <button class="mobile-menu-close p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 dark:text-gray-400 transition">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+      <div class="flex flex-col gap-5 text-lg font-medium">
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html">Home</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html#about">About Doctor</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html#specialties">Specialities</a>
+        <a class="text-teal-primary font-bold border-l-4 border-teal-primary pl-3" href="video.html">Video Consultation</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html#testimonials">Testimonials</a>
+      </div>
+    </div>
+    <div>
+      <a href="appointment.html" class="w-full text-center bg-teal-primary hover:bg-teal-secondary text-white py-4 rounded-xl font-bold text-base transition shadow-lg block">
+        Book Appointment
+      </a>
+    </div>
+  </div>
+  <!-- END: Mobile Menu Drawer -->
+
+  <main class="relative">
+    <!-- Hero Section -->
+    <section class="gradient-overlay-teal pt-16 pb-20 px-4 md:px-10 border-b border-teal-900/5">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+        <div class="flex-1 text-center lg:text-left reveal">
+          <div class="inline-flex items-center gap-2 bg-[#e0f2f1] dark:bg-[#002e2c] text-[#086b6a] dark:text-teal-300 px-3 py-1.5 rounded-full mb-6 text-xs font-bold uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">videocam</span>
+            Video Consultation Enabled
+          </div>
+          <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight">
+            Consult with Dr. Varsha Bandi <br class="hidden md:block"/> from comfort of your Home
+          </h1>
+          <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
+            Experience absolute holistic homeopathic diagnostics and nutrition planning securely via video call. Perfect for busy professionals, elderly patients, or global consulting.
+          </p>
+        </div>
+        <!-- Profile Circle -->
+        <div class="flex-shrink-0 w-36 h-36 md:w-48 md:h-48 rounded-full border-4 border-teal-primary/30 shadow-2xl overflow-hidden relative reveal md:delay-200 animate-float">
+          <img alt="Dr. Varsha Bandi Portrait" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSEsGv0qiF7Hju6kHUbRQ4SZ4LHTvveLZ-S5-ORQOrSI1qJUC4RYhxO4qkkLEIk8GtJfhSnPPbQqgtppt6Rjo5NgmlSFmQhzQ-nhDhXqeHTRAHz9dun6IZvBgoTv7ndUDyb3eiMmcZTnlrfxML5J536jNBvHbAL6mzx0bPsNZOkAjWT9nBzuKvsWQbFk0DxqkEX5OLuK9dDef88feplKLlcO1kNWdN_oi2qYtGsi8GTCkS6C6ycrGP4ExXL12KEVYIU4fR0nhktleV"/>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content: Guide & Preparation checklist -->
+    <section class="py-20 px-4 md:px-10 max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Prep checklist -->
+        <div class="lg:col-span-8 space-y-8 reveal">
+          <div class="bg-white dark:bg-[#111f1e] rounded-3xl p-8 md:p-12 shadow-sm border border-teal-900/5">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-teal-secondary dark:text-teal-400 mb-8 flex items-center gap-3">
+              <span class="material-symbols-outlined text-3xl">task_alt</span> Preparing for Your Online Session
+            </h2>
+            
+            <ul class="space-y-8">
+              <li class="flex gap-5 group">
+                <div class="flex-shrink-0 w-12 h-12 bg-accent-teal dark:bg-teal-950/40 rounded-2xl flex items-center justify-center text-teal-primary dark:text-teal-400 group-hover:bg-teal-primary group-hover:text-white transition duration-300">
+                  <span class="material-symbols-outlined text-2xl">wifi</span>
+                </div>
+                <div>
+                  <p class="font-bold text-lg text-gray-900 dark:text-white">Stable Internet Connection</p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mt-1">Make sure you are connected to a high-speed Wi-Fi or 4G LTE network to ensure seamless HD audio-video feed.</p>
+                </div>
+              </li>
+              <li class="flex gap-5 group">
+                <div class="flex-shrink-0 w-12 h-12 bg-accent-teal dark:bg-teal-950/40 rounded-2xl flex items-center justify-center text-teal-primary dark:text-teal-400 group-hover:bg-teal-primary group-hover:text-white transition duration-300">
+                  <span class="material-symbols-outlined text-2xl">privacy_tip</span>
+                </div>
+                <div>
+                  <p class="font-bold text-lg text-gray-900 dark:text-white">Quiet &amp; Private Room</p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mt-1">Find a comfortable, quiet space where you won't be interrupted, ensuring a completely confidential consultation session.</p>
+                </div>
+              </li>
+              <li class="flex gap-5 group">
+                <div class="flex-shrink-0 w-12 h-12 bg-accent-teal dark:bg-teal-950/40 rounded-2xl flex items-center justify-center text-teal-primary dark:text-teal-400 group-hover:bg-teal-primary group-hover:text-white transition duration-300">
+                  <span class="material-symbols-outlined text-2xl">clinical_notes</span>
+                </div>
+                <div>
+                  <p class="font-bold text-lg text-gray-900 dark:text-white">Keep Medical History Ready</p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mt-1">Prepare past prescriptions, diagnostic lab tests, or blood reports so you can upload or refer to them during the call.</p>
+                </div>
+              </li>
+              <li class="flex gap-5 group">
+                <div class="flex-shrink-0 w-12 h-12 bg-accent-teal dark:bg-teal-950/40 rounded-2xl flex items-center justify-center text-teal-primary dark:text-teal-400 group-hover:bg-teal-primary group-hover:text-white transition duration-300">
+                  <span class="material-symbols-outlined text-2xl">schedule</span>
+                </div>
+                <div>
+                  <p class="font-bold text-lg text-gray-900 dark:text-white">Log in 5 Minutes Early</p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mt-1">Join the consultation portal 5 minutes prior to verify your mic and camera permissions work seamlessly.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Trust Sidebars and Direct CTA -->
+        <div class="lg:col-span-4 space-y-6 reveal md:delay-200">
+          <div class="bg-white dark:bg-[#111f1e] p-6 rounded-2xl border border-teal-900/5 shadow-sm space-y-5">
+            <div class="flex items-center gap-4 p-3 bg-accent-teal dark:bg-teal-950/20 rounded-xl">
+              <span class="material-symbols-outlined text-teal-primary dark:text-teal-400 text-3xl">verified_user</span>
+              <div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white">HIPAA Secure Portal</h4>
+                <p class="text-[11px] text-gray-400">Complete end-to-end encryption guidelines.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 bg-accent-teal dark:bg-teal-950/20 rounded-xl">
+              <span class="material-symbols-outlined text-teal-primary dark:text-teal-400 text-3xl">lock</span>
+              <div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white">Confidentiality Assured</h4>
+                <p class="text-[11px] text-gray-400">Your health data is strictly encrypted.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 bg-accent-teal dark:bg-teal-950/20 rounded-xl">
+              <span class="material-symbols-outlined text-teal-primary dark:text-teal-400 text-3xl">support_agent</span>
+              <div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white">Technical Support</h4>
+                <p class="text-[11px] text-gray-400">Help desk available for setup assistance.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct booking link CTA -->
+          <div class="bg-teal-primary text-white p-8 rounded-3xl text-center shadow-lg border border-teal-950/10">
+            <h3 class="text-xl font-bold mb-2">Book Video Slot Now</h3>
+            <p class="text-teal-100 text-xs leading-relaxed mb-6">Select a convenient 30-minute block for your natural consult.</p>
+            <button id="start-video-consult" class="w-full text-center bg-white text-teal-primary py-4 rounded-xl font-bold text-sm transition hover:bg-teal-50 hover-scale shadow-md block">
+              Start Video Consultation
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- BEGIN: FooterCTA -->
+  <footer class="bg-teal-secondary dark:bg-[#061c1b] text-white pt-16 pb-10 border-t border-white/5 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 md:px-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-white/10 pb-12">
+        <div class="flex items-center gap-4">
+          <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/10">
+            <span class="material-symbols-outlined text-4xl text-teal-300">calendar_month</span>
+          </div>
+          <div>
+            <h4 class="text-xl md:text-2xl font-bold">Ready to Start Your Healing Journey?</h4>
+            <p class="text-teal-200 text-sm opacity-90 mt-1">Schedule your consultation today and experience natural care.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-4 md:justify-end">
+          <a href="appointment.html" class="bg-white text-teal-secondary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-teal-50 transition-all hover-scale shadow-lg">
+            <span class="material-symbols-outlined">calendar_month</span> Book Appointment
+          </a>
+          <a href="video.html" class="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all hover-scale">
+            <span class="material-symbols-outlined">video_chat</span> Video Consultation
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 mt-10 text-sm">
+        <div class="text-center md:text-left">
+          <h4 class="font-bold text-lg text-teal-300">Dr. Varsha Bandi's Homeopathy</h4>
+          <p class="text-teal-200/60 mt-1">© 2026 Dr. Varsha Bandi Clinic. All rights reserved.</p>
+        </div>
+        <div class="flex gap-6 text-teal-200/80">
+          <a class="hover:text-white transition hover:underline" href="#">Privacy Policy</a>
+          <a class="hover:text-white transition hover:underline" href="#">Terms of Service</a>
+          <a class="hover:text-white transition hover:underline" href="#">FAQ Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- END: FooterCTA -->
+
+  <!-- BEGIN: Consent Modal -->
+  <div id="consent-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-all duration-300">
+    <div class="bg-white dark:bg-[#111f1e] w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden border border-teal-500/10 scale-95 transition-transform duration-300" id="consent-modal-content">
+      <div class="p-8 md:p-10">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="bg-teal-primary/10 p-3 rounded-2xl text-teal-primary">
+            <span class="material-symbols-outlined text-3xl">gavel</span>
+          </div>
+          <h3 class="text-2xl font-black text-teal-secondary dark:text-teal-400">Patient Consent Form</h3>
+        </div>
+        
+        <div class="space-y-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar mb-8 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p>By proceeding with this Video Consultation, I hereby acknowledge and agree to the following terms:</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>I understand that this consultation is conducted remotely via video communication technology.</li>
+            <li>I consent to the collection and processing of my personal and health data for the purpose of this clinical consultation.</li>
+            <li>I agree that I am providing my complete and voluntary consent for this video consultation scheduling.</li>
+            <li>I understand that remote diagnosis has limitations compared to in-person clinical examinations.</li>
+            <li>I am responsible for providing accurate medical history to ensure safe and effective treatment.</li>
+            <li>All discussions and prescriptions will be kept strictly confidential as per clinical privacy standards.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-6">
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <div class="relative flex items-center mt-1">
+              <input type="checkbox" id="consent-checkbox" class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-gray-300 bg-white checked:bg-teal-primary checked:border-teal-primary focus:outline-none transition-all"/>
+              <span class="material-symbols-outlined absolute text-white opacity-0 peer-checked:opacity-100 text-[16px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">check</span>
+            </div>
+            <span class="text-sm font-bold text-gray-700 dark:text-gray-200 group-hover:text-teal-primary transition-colors">
+              I agree to the terms and provide my complete consent for this video consultation.
+            </span>
+          </label>
+
+          <div class="flex gap-4">
+            <button id="close-consent-modal" class="flex-1 py-4 rounded-2xl font-bold text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Cancel</button>
+            <button id="proceed-to-consult" disabled class="flex-[2] bg-teal-primary text-white py-4 rounded-2xl font-bold opacity-50 cursor-not-allowed transition-all shadow-lg hover:shadow-teal-900/20">Proceed to Schedule</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END: Consent Modal -->
+
+  <!-- JavaScript Modules -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,274 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Appointment – Dr. Varsha Bandi's Homeopathy</title>
-  <meta name="description" content="Book an in-person or video consultation with Dr. Varsha Bandi. Select your preferred date, time slot, and service. Easy online booking." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Book Appointment - Dr. Varsha Bandi's Homeopathy</title>
+  
+  <!-- Tailwind CSS & Icon Fonts -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Custom Styling Rules -->
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'teal-primary': '#086b6a',
+            'teal-secondary': '#044e4d',
+            'teal-accent': '#f0fafa'
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
+<body class="bg-main text-gray-800 dark:bg-[#0b1515] dark:text-gray-100 antialiased selection:bg-teal-primary selection:text-white">
 
-<!-- ====== NAVBAR ====== -->
-<nav class="navbar" id="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">
-      <div class="logo-icon">✦</div>
-      <div>
-        <span class="logo-name">Dr. Varsha Bandi</span>
-        <span class="logo-tagline">Homoeopath & Wellness Expert</span>
+  <!-- BEGIN: TopBar -->
+  <div class="bg-[#044e4d] dark:bg-[#033635] text-white py-2.5 px-4 md:px-10 text-xs md:text-sm shadow-sm transition-all" data-purpose="top-bar">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <div class="flex flex-wrap justify-center md:justify-start gap-4">
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">phone_in_talk</span>
+          +91 9902684355 / 9481738539
+        </span>
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">mail</span>
+          drvarshabandi82@gmail.com
+        </span>
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">location_on</span>
+          #102, Nithya Habitat, Sanjivani Nagar, Bengaluru
+        </span>
       </div>
-    </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="nav-link">Home</a></li>
-      <li><a href="index.html#about" class="nav-link">About</a></li>
-      <li><a href="index.html#specialities" class="nav-link">Treatments</a></li>
-      <li><a href="video-consultation.html" class="nav-link">Video Consultation</a></li>
-      <li><a href="index.html#testimonials" class="nav-link">Testimonials</a></li>
-      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
-    </ul>
-    <a href="appointment.html" class="btn-primary nav-cta">Book Appointment</a>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- ====== PAGE ====== -->
-<main class="appt-page">
-
-  <!-- Header -->
-  <div class="appt-header">
-    <div class="section-label" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);color:white;margin-bottom:16px;">Schedule Your Consultation</div>
-    <h1>Book Your Appointment</h1>
-    <p>Embark on your journey to holistic wellness. Choose your preferred consultation mode and find a time that works best for you.</p>
-  </div>
-
-  <!-- Body -->
-  <div class="appt-body">
-    <div class="container">
-      <div class="appt-grid">
-
-        <!-- Left: Multi-Step Form -->
-        <div class="appt-form-card">
-
-          <!-- Step 1: Service -->
-          <div class="form-section" id="step-service">
-            <div class="form-step">
-              <span class="material-icons-round" style="font-size:14px">looks_one</span>
-              Step 1 of 3
-            </div>
-            <h2>Choose Service</h2>
-            <p>Select your preferred consultation type</p>
-            <div class="service-cards">
-              <div class="service-card selected" data-service="In-Person" data-fee="₹500" onclick="selectService(this)">
-                <div class="service-card-icon"><span class="material-icons-round">local_hospital</span></div>
-                <h4>In-Person Visit</h4>
-                <p>Visit us at Pattegar Palya, Bengaluru</p>
-                <div class="fee">₹500</div>
-              </div>
-              <div class="service-card" data-service="Video" data-fee="₹400" onclick="selectService(this)">
-                <div class="service-card-icon"><span class="material-icons-round">videocam</span></div>
-                <h4>Video Consultation</h4>
-                <p>Online consultation via secure link</p>
-                <div class="fee">₹400</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 2: Date & Time -->
-          <div class="form-section" id="step-datetime">
-            <div class="form-step">
-              <span class="material-icons-round" style="font-size:14px">looks_two</span>
-              Step 2 of 3
-            </div>
-            <h2>Select Date &amp; Time</h2>
-            <p>Choose a convenient date and time slot</p>
-
-            <!-- Calendar -->
-            <div class="calendar-nav">
-              <button class="cal-nav-btn" id="prevMonth" onclick="changeMonth(-1)">&#8249;</button>
-              <div>
-                <div class="cal-month-label" id="calMonthLabel">June 2026</div>
-                <div style="display:flex;gap:8px;margin-top:6px;justify-content:center">
-                  <select id="yearSelect" style="border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:0.8rem;font-family:var(--font-sans);color:var(--text);cursor:pointer" onchange="onYearChange()"></select>
-                  <select id="monthSelect" style="border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:0.8rem;font-family:var(--font-sans);color:var(--text);cursor:pointer" onchange="onMonthChange()">
-                    <option value="0">January</option><option value="1">February</option><option value="2">March</option>
-                    <option value="3">April</option><option value="4">May</option><option value="5">June</option>
-                    <option value="6">July</option><option value="7">August</option><option value="8">September</option>
-                    <option value="9">October</option><option value="10">November</option><option value="11">December</option>
-                  </select>
-                </div>
-              </div>
-              <button class="cal-nav-btn" id="nextMonth" onclick="changeMonth(1)">&#8250;</button>
-            </div>
-            <div class="calendar-grid" id="calendarGrid"></div>
-
-            <!-- Time Slots -->
-            <div style="margin-top:28px">
-              <div class="time-group">
-                <div class="time-group-label">🌅 Morning</div>
-                <div class="time-slots" id="morning-slots"></div>
-              </div>
-              <div class="time-group">
-                <div class="time-group-label">☀️ Afternoon</div>
-                <div class="time-slots" id="afternoon-slots"></div>
-              </div>
-              <div class="time-group">
-                <div class="time-group-label">🌇 Evening</div>
-                <div class="time-slots" id="evening-slots"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 3: Patient Info -->
-          <div class="form-section" id="step-patient">
-            <div class="form-step">
-              <span class="material-icons-round" style="font-size:14px">looks_3</span>
-              Step 3 of 3
-            </div>
-            <h2>Patient Information</h2>
-            <p>Please fill in your details to complete the booking</p>
-            <form id="bookingForm" onsubmit="submitBooking(event)">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="patientName">Full Name *</label>
-                  <input type="text" id="patientName" name="name" placeholder="Your full name" required />
-                </div>
-                <div class="form-group">
-                  <label for="patientPhone">Phone Number *</label>
-                  <input type="tel" id="patientPhone" name="phone" placeholder="+91 98765 43210" required />
-                </div>
-                <div class="form-group">
-                  <label for="patientEmail">Email Address *</label>
-                  <input type="email" id="patientEmail" name="email" placeholder="your@email.com" required />
-                </div>
-                <div class="form-group">
-                  <label for="patientAge">Age</label>
-                  <input type="number" id="patientAge" name="age" placeholder="Your age" min="1" max="120" />
-                </div>
-                <div class="form-group full">
-                  <label for="chiefComplaint">Chief Complaint / Symptoms</label>
-                  <textarea id="chiefComplaint" name="complaint" placeholder="Briefly describe your main health concern..."></textarea>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Right: Summary Sidebar -->
-        <div>
-          <div class="appt-summary-card">
-            <div class="summary-header">
-              <h3>Booking Summary</h3>
-              <p>Review your appointment details</p>
-            </div>
-            <div class="summary-body">
-              <div class="summary-line">
-                <span class="label">Service</span>
-                <span class="value" id="sum-service">In-Person Visit</span>
-              </div>
-              <div class="summary-line">
-                <span class="label">Date</span>
-                <span class="value" id="sum-date">Not selected</span>
-              </div>
-              <div class="summary-line">
-                <span class="label">Time</span>
-                <span class="value" id="sum-time">Not selected</span>
-              </div>
-              <div class="summary-line">
-                <span class="label">Consultation Fee</span>
-                <span class="value" id="sum-fee" style="color:var(--primary)">₹500</span>
-              </div>
-              <div class="summary-line">
-                <span class="label">Doctor</span>
-                <span class="value">Dr. Varsha Bandi<br/><small style="font-weight:400;color:var(--text-muted)">BHMS, MD (Hom)</small></span>
-              </div>
-            </div>
-            <div class="summary-trust">
-              <div class="trust-item"><span class="material-icons-round">lock</span> Secure Booking — Data encrypted &amp; safe</div>
-              <div class="trust-item"><span class="material-icons-round">privacy_tip</span> Confidentiality Guaranteed</div>
-              <div class="trust-item"><span class="material-icons-round">verified</span> 15+ Years Experience</div>
-            </div>
-            <div class="confirm-btn-wrap">
-              <button class="btn-primary" id="confirmBtn" onclick="submitBooking(event)">
-                <span class="material-icons-round">check_circle</span>
-                Confirm Appointment
-              </button>
-              <p class="confirm-tnc">By clicking confirm, you agree to our <a href="#" style="color:var(--primary)">Terms of Service</a>.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</main>
-
-<!-- ====== SUCCESS MODAL ====== -->
-<div class="modal-overlay" id="successModal">
-  <div class="modal">
-    <div class="modal-icon">
-      <span class="material-icons-round">check</span>
-    </div>
-    <h2>Appointment Booked!</h2>
-    <p>Your appointment with Dr. Varsha Bandi has been successfully requested.</p>
-    <div class="modal-id" id="modalId">APT-000000</div>
-    <p id="modalDetails" style="font-size:0.85rem;color:var(--text-muted)"></p>
-    <div class="modal-actions">
-      <a href="index.html" class="btn-outline">Back to Home</a>
-      <button class="btn-primary" onclick="closeModal()">
-        <span class="material-icons-round">calendar_month</span>
-        Book Another
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
-<!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="nav-logo">
-          <div class="logo-icon">✦</div>
-          <div>
-            <span class="logo-name">Dr. Varsha Bandi</span>
-            <span class="logo-tagline">Homoeopath &amp; Wellness Expert</span>
-          </div>
+      <div class="flex items-center gap-4">
+        <a href="tel:+919902684355" class="bg-red-600 hover:bg-red-700 text-white rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-md shadow-red-900/10 flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">emergency</span> Emergency Call
         </a>
-        <p class="footer-desc">Dedicated to providing compassionate, holistic healing. Trusted by 8,000+ patients.</p>
       </div>
-      <div class="footer-links">
-        <h5>Quick Links</h5>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#about">About Doctor</a></li>
-          <li><a href="video-consultation.html">Video Consultation</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h5>Legal</h5>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Dr. Varsha Bandi's Homeopathy Clinic. All rights reserved.</p>
     </div>
   </div>
-</footer>
+  <!-- END: TopBar -->
 
-<script src="js/app.js"></script>
-<script src="js/appointment.js"></script>
+  <!-- BEGIN: MainHeader -->
+  <header class="sticky top-0 z-50 glass-panel shadow-[0_4px_30px_rgba(8,107,106,0.03)] border-b border-[#086b6a]/10">
+    <nav class="max-w-7xl mx-auto px-4 md:px-10 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 group" data-purpose="logo">
+        <div class="relative w-11 h-11 bg-white rounded-xl shadow-inner border border-teal-100 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
+          <img alt="Dr. Varsha Bandi Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe68SlGmD9lamoEBpSR190TzURLMwPjMI8DpPVjzNAOH-YdjfDie4SFW2hej50y7DYKuwHn3o1TJNzL3kRfgi0S1dZc7do9R_trNFYWckUechGXqL0PGj5Qfxio1ekV54UlmpC_aTifK9L_xvqWUj4uQQQt8d0ErSzWf_gBmEpqC2lLl4h-33wAaMTYm_FH1V3jO41l7bsmI7yTINm1Uax6Mxh63jtZwvgiyoAbwhAt8T-GmBqGgWHK4bHfqhXI1zkZHhOrGMXAqOm" style="object-position: 0 0; clip-path: inset(20px 850px 850px 40px); transform: scale(1.8) translate(8px, 8px);"/>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-[#086b6a] dark:text-teal-400 leading-tight tracking-tight">Dr. Varsha Bandi</h1>
+          <p class="text-[9px] uppercase tracking-widest font-extrabold text-gray-400 dark:text-gray-500">Homoeopath &amp; Wellness Expert</p>
+        </div>
+      </a>
+      
+      <!-- Desktop Nav Menu Links -->
+      <div class="hidden lg:flex items-center gap-8">
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html">Home</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html#about">About Doctor</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html#specialties">Specialities</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="video.html">Video Consultation</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="index.html#testimonials">Testimonials</a>
+        
+        <!-- Theme Toggle Switcher -->
+        <button class="theme-toggle-btn p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon material-symbols-outlined">dark_mode</span>
+        </button>
+
+        <a href="appointment.html" class="bg-teal-primary text-white px-5 py-2 rounded-xl font-bold text-sm transition-all duration-300 shadow-md shadow-teal-900/10 hover:shadow-teal-900/20 hover:-translate-y-0.5 border-b-2 border-teal-primary pb-1">
+          Book Appointment
+        </a>
+      </div>
+
+      <!-- Mobile Nav Buttons -->
+      <div class="flex items-center gap-3 lg:hidden">
+        <button class="theme-toggle-btn p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon material-symbols-outlined">dark_mode</span>
+        </button>
+        <button class="mobile-menu-btn text-teal-primary dark:text-teal-400 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition" aria-label="Open navigation menu">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <!-- END: MainHeader -->
+
+  <!-- BEGIN: Mobile Menu Drawer Overlay -->
+  <div class="mobile-menu-drawer fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-[#111f1e] shadow-2xl border-l border-teal-950/10 transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between">
+    <div>
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <h3 class="font-bold text-[#086b6a] dark:text-teal-400">Navigation Menu</h3>
+        </div>
+        <button class="mobile-menu-close p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 dark:text-gray-400 transition">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+      <div class="flex flex-col gap-5 text-lg font-medium">
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html">Home</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html#about">About Doctor</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html#specialties">Specialities</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="video.html">Video Consultation</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="index.html#testimonials">Testimonials</a>
+      </div>
+    </div>
+    <div>
+      <a href="appointment.html" class="w-full text-center bg-teal-primary hover:bg-teal-secondary text-white py-4 rounded-xl font-bold text-base transition shadow-lg block">
+        Book Appointment
+      </a>
+    </div>
+  </div>
+  <!-- END: Mobile Menu Drawer -->
+
+  <main class="max-w-7xl mx-auto px-4 md:px-10 py-12">
+    <!-- Hero Header -->
+    <div class="text-center mb-12 reveal">
+      <h1 class="text-3xl md:text-5xl font-extrabold text-teal-secondary dark:text-teal-400 mb-3">Schedule Your Consultation</h1>
+      <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-base">Embark on your natural recovery pathway. Easily confirm your mode, timing slot, and securely finalize registration details.</p>
+    </div>
+
+    <!-- Booking Panel Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      
+      <!-- Left Column: Steps Interface -->
+      <div class="lg:col-span-8 space-y-8 reveal" id="booking-flow-card">
+        
+        <!-- Step progress indicators -->
+        <div class="bg-white dark:bg-[#111f1e] p-6 rounded-2xl border border-teal-900/5 shadow-sm flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="step-indicator w-8 h-8 rounded-full bg-primary-teal text-white flex items-center justify-center font-bold text-sm transition-all duration-300">1</span>
+            <span class="hidden md:inline font-bold text-sm text-gray-700 dark:text-gray-300">Service Mode</span>
+          </div>
+          <div class="h-[1.5px] bg-gray-200 dark:bg-gray-800 flex-1 mx-2"></div>
+          <div class="flex items-center gap-2">
+            <span class="step-indicator w-8 h-8 rounded-full bg-gray-200 text-gray-400 dark:bg-gray-800 flex items-center justify-center font-bold text-sm transition-all duration-300">2</span>
+            <span class="hidden md:inline font-bold text-sm text-gray-400">Date &amp; Time</span>
+          </div>
+          <div class="h-[1.5px] bg-gray-200 dark:bg-gray-800 flex-1 mx-2"></div>
+          <div class="flex items-center gap-2">
+            <span class="step-indicator w-8 h-8 rounded-full bg-gray-200 text-gray-400 dark:bg-gray-800 flex items-center justify-center font-bold text-sm transition-all duration-300">3</span>
+            <span class="hidden md:inline font-bold text-sm text-gray-400">Patient Details</span>
+          </div>
+        </div>
+
+        <!-- Flow Steps Containers -->
+        <div class="bg-white dark:bg-[#111f1e] rounded-3xl p-8 border border-teal-900/5 shadow-sm relative overflow-hidden transition-all duration-300">
+          
+          <!-- STEP 1: Select Service Mode -->
+          <div id="step-1" class="space-y-6 transition-all duration-300">
+            <h2 class="text-2xl font-black text-teal-secondary dark:text-teal-400 mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-3xl">medical_services</span> Choose Service Mode
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- In Clinic Card -->
+              <button class="service-selection-card flex flex-col items-center p-8 bg-white dark:bg-[#162a28] rounded-2xl shadow-sm border-2 border-transparent hover:border-primary-teal transition-all duration-300 group" data-service="clinic" type="button">
+                <span class="material-symbols-outlined text-5xl text-teal-primary dark:text-teal-400 mb-4 group-hover:scale-110 transition duration-300">home_health</span>
+                <span class="font-extrabold text-xl text-teal-secondary dark:text-teal-300 mb-2">In-Clinic Consult</span>
+                <p class="text-xs text-gray-500 dark:text-gray-400 text-center max-w-[200px] mb-4">Visit us at Sanjivani Nagar, Bengaluru</p>
+                <div class="bg-gray-100 dark:bg-teal-950/30 px-4 py-1.5 rounded-full text-xs font-bold text-teal-primary dark:text-teal-400">Fee: ₹800</div>
+              </button>
+              
+              <!-- Video Call Card -->
+              <button class="service-selection-card flex flex-col items-center p-8 bg-white dark:bg-[#162a28] rounded-2xl shadow-sm border-2 border-primary-teal bg-accent-teal dark:bg-[#00201e] hover:border-primary-teal transition-all duration-300 group" data-service="video" type="button">
+                <span class="material-symbols-outlined text-5xl text-teal-primary dark:text-teal-400 mb-4 group-hover:scale-110 transition duration-300">video_chat</span>
+                <span class="font-extrabold text-xl text-teal-secondary dark:text-teal-300 mb-2">Video Call Session</span>
+                <p class="text-xs text-gray-500 dark:text-gray-400 text-center max-w-[200px] mb-4">Online consultation via secure HIPAA-ready link</p>
+                <div class="bg-gray-100 dark:bg-teal-950/30 px-4 py-1.5 rounded-full text-xs font-bold text-teal-primary dark:text-teal-400">Fee: ₹1,000</div>
+              </button>
+            </div>
+
+            <!-- Route controls -->
+            <div class="flex justify-end pt-6 border-t border-gray-100 dark:border-teal-900/20">
+              <button class="btn-next-step bg-teal-primary hover:bg-teal-secondary text-white px-8 py-3.5 rounded-xl font-bold flex items-center gap-2 hover-scale" type="button">
+                Next: Date &amp; Time <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Select Date & Time Slots (Initially Hidden) -->
+          <div id="step-2" class="space-y-6 hidden opacity-0 translate-y-4 transition-all duration-300">
+            <h2 class="text-2xl font-black text-teal-secondary dark:text-teal-400 mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-3xl">calendar_month</span> Choose Date &amp; Time Slot
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <!-- Calendar grid -->
+              <div class="md:col-span-6 bg-slate-50 dark:bg-teal-950/20 p-5 rounded-2xl border border-teal-900/5">
+                <div class="flex justify-between items-center mb-4">
+                  <span class="font-bold text-teal-secondary dark:text-teal-300">December 2026</span>
+                  <div class="flex gap-2">
+                    <button type="button" class="material-symbols-outlined p-1 bg-white dark:bg-[#111f1e] hover:bg-teal-50 rounded-lg text-gray-500 text-[20px]">chevron_left</button>
+                    <button type="button" class="material-symbols-outlined p-1 bg-white dark:bg-[#111f1e] hover:bg-teal-50 rounded-lg text-gray-500 text-[20px]">chevron_right</button>
+                  </div>
+                </div>
+                <div class="grid grid-cols-7 gap-2 text-center text-xs">
+                  <div class="font-extrabold text-teal-primary dark:text-teal-400 py-1">S</div>
+                  <div class="font-extrabold text-teal-primary dark:text-teal-400 py-1">M</div>
+                  <div class="font-extrabold text-teal-primary dark:text-teal-400 py-1">T</div>
+                  <div class="font-extrabold text-teal-primary dark:text-teal-400 py-1">W</div>
+                  <div class="font-extrabold text-teal-primary dark:text-teal-400 py-1">T</div>
+                  <div class="font-extrabold text-teal-primary dark:text-teal-400 py-1">F</div>
+                  <div class="font-extrabold text-teal-primary dark:text-teal-400 py-1">S</div>
+                  
+                  <div class="py-2 text-gray-300 dark:text-gray-700">28</div>
+                  <div class="py-2 text-gray-300 dark:text-gray-700">29</div>
+                  <div class="py-2 text-gray-300 dark:text-gray-700">30</div>
+                  <div class="py-2">1</div>
+                  <div class="py-2">2</div>
+                  <div class="py-2">3</div>
+                  <div class="py-2">4</div>
+                  <div class="py-2">5</div>
+                  <div class="py-2">6</div>
+                  <div class="py-2">7</div>
+                  <div class="py-2">8</div>
+                  <div class="py-2">9</div>
+                  <div class="py-2">10</div>
+                  <div class="py-2">11</div>
+                  <div class="py-2">12</div>
+                  <div class="py-2">13</div>
+                  <div class="py-2">14</div>
+                  
+                  <!-- Selected date by default -->
+                  <button type="button" class="calendar-day-btn w-8 h-8 flex items-center justify-center bg-primary-teal text-white rounded-full font-bold mx-auto transition-transform scale-110" data-day="15">15</button>
+                  <button type="button" class="calendar-day-btn w-8 h-8 flex items-center justify-center hover:bg-primary-teal/10 text-gray-700 dark:text-gray-300 rounded-full font-bold mx-auto transition-all" data-day="16">16</button>
+                  <button type="button" class="calendar-day-btn w-8 h-8 flex items-center justify-center hover:bg-primary-teal/10 text-gray-700 dark:text-gray-300 rounded-full font-bold mx-auto transition-all" data-day="17">17</button>
+                  
+                  <div class="py-2">18</div>
+                  <div class="py-2">19</div>
+                  <div class="py-2">20</div>
+                  <div class="py-2">21</div>
+                </div>
+              </div>
+
+              <!-- Time slots selector -->
+              <div class="md:col-span-6 space-y-4">
+                <div>
+                  <h4 class="font-bold text-xs uppercase tracking-widest text-gray-400 mb-2">Morning Session</h4>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" class="time-slot-btn border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2.5 rounded-xl text-sm font-semibold transition hover:bg-primary-teal hover:text-white hover:border-transparent">09:00 AM</button>
+                    <button type="button" class="time-slot-btn border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2.5 rounded-xl text-sm font-semibold transition hover:bg-primary-teal hover:text-white hover:border-transparent">10:30 AM</button>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-bold text-xs uppercase tracking-widest text-gray-400 mb-2">Afternoon Session</h4>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" class="time-slot-btn border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2.5 rounded-xl text-sm font-semibold transition hover:bg-primary-teal hover:text-white hover:border-transparent">02:00 PM</button>
+                    <button type="button" class="time-slot-btn border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2.5 rounded-xl text-sm font-semibold transition hover:bg-primary-teal hover:text-white hover:border-transparent">04:30 PM</button>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-bold text-xs uppercase tracking-widest text-gray-400 mb-2">Evening Session</h4>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" class="time-slot-btn bg-primary-teal text-white py-2.5 rounded-xl text-sm font-semibold transition" data-slot="1800">06:00 PM</button>
+                    <button type="button" class="time-slot-btn border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2.5 rounded-xl text-sm font-semibold transition hover:bg-primary-teal hover:text-white hover:border-transparent">07:30 PM</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Route controls -->
+            <div class="flex justify-between pt-6 border-t border-gray-100 dark:border-teal-900/20">
+              <button class="btn-prev-step border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 px-6 py-3.5 rounded-xl font-bold flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-[#162a28]" type="button">
+                <span class="material-symbols-outlined">arrow_back</span> Back
+              </button>
+              <button class="btn-next-step bg-teal-primary hover:bg-teal-secondary text-white px-8 py-3.5 rounded-xl font-bold flex items-center gap-2 hover-scale" type="button">
+                Next: Patient Info <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Complete Patient Details (Initially Hidden) -->
+          <div id="step-3" class="space-y-6 hidden opacity-0 translate-y-4 transition-all duration-300">
+            <h2 class="text-2xl font-black text-teal-secondary dark:text-teal-400 mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-3xl">patient_list</span> Complete Patient Details
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300">Full Name *</label>
+                <input id="input-name" class="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-700 dark:bg-[#162a28] focus:ring-teal-primary focus:border-teal-primary outline-none transition" placeholder="e.g. Rahul Sharma" required type="text"/>
+              </div>
+              <div class="space-y-2">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300">Mobile Phone *</label>
+                <input id="input-phone" class="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-700 dark:bg-[#162a28] focus:ring-teal-primary focus:border-teal-primary outline-none transition" placeholder="+91 98765 43210" required type="tel"/>
+              </div>
+              <div class="md:col-span-2 space-y-2">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300">Email Address *</label>
+                <input id="input-email" class="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-700 dark:bg-[#162a28] focus:ring-teal-primary focus:border-teal-primary outline-none transition" placeholder="rahul@example.com" required type="email"/>
+              </div>
+              <div class="md:col-span-2 space-y-2">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300">Symptoms or Health Goals</label>
+                <textarea id="input-concern" class="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-700 dark:bg-[#162a28] focus:ring-teal-primary focus:border-teal-primary outline-none transition" placeholder="Briefly describe your symptoms or health goals..." rows="4"></textarea>
+              </div>
+            </div>
+
+            <!-- Route controls -->
+            <div class="flex justify-between pt-6 border-t border-gray-100 dark:border-teal-900/20">
+              <button class="btn-prev-step border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 px-6 py-3.5 rounded-xl font-bold flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-[#162a28]" type="button">
+                <span class="material-symbols-outlined">arrow_back</span> Back
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Booking Summary Sidebar -->
+      <div class="lg:col-span-4 sticky top-24 reveal md:delay-300">
+        <div class="bg-white dark:bg-[#111f1e] rounded-3xl shadow-xl p-8 border border-teal-900/5 relative overflow-hidden transition-all duration-300" id="summary-card">
+          <!-- Background decoration -->
+          <div class="absolute -top-10 -right-10 w-24 h-24 bg-teal-100/30 dark:bg-teal-950/20 rounded-full blur-2xl"></div>
+
+          <h3 class="text-xl font-black text-teal-secondary dark:text-teal-400 mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined">receipt_long</span> Booking Summary
+          </h3>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-[#162a28] rounded-2xl border border-teal-900/5">
+              <span class="material-symbols-outlined text-teal-primary dark:text-teal-400 text-2xl">medical_services</span>
+              <div>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Service Type</p>
+                <p id="summary-service" class="font-extrabold text-sm text-gray-800 dark:text-white">Video Call Session</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-[#162a28] rounded-2xl border border-teal-900/5">
+              <span class="material-symbols-outlined text-teal-primary dark:text-teal-400 text-2xl">calendar_today</span>
+              <div>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Date &amp; Time Slot</p>
+                <p id="summary-date-time" class="font-extrabold text-sm text-gray-800 dark:text-white">Dec 15, 2026 at 06:00 PM</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center p-4 bg-slate-50 dark:bg-[#162a28] rounded-2xl border border-teal-900/5">
+              <span class="text-xs font-bold text-gray-500 dark:text-gray-400">Total Consultation Fee</span>
+              <span id="summary-fee" class="text-lg font-black text-teal-primary dark:text-teal-400">₹1,000</span>
+            </div>
+          </div>
+
+          <!-- Confirm button -->
+          <button id="btn-confirm-appointment" class="w-full bg-teal-primary hover:bg-teal-secondary text-white py-4.5 rounded-2xl font-bold text-base transition-all duration-300 shadow-lg shadow-teal-950/20 hover-scale flex items-center justify-center gap-2 group" type="button">
+            Confirm &amp; Schedule
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </button>
+          
+          <p class="text-center text-[10px] text-gray-400 mt-4 leading-normal">
+            By clicking confirm, you agree to our confidential clinical practices and scheduling terms.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- BEGIN: FooterCTA -->
+  <footer class="bg-teal-secondary dark:bg-[#061c1b] text-white pt-16 pb-10 border-t border-white/5 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 md:px-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-white/10 pb-12">
+        <div class="flex items-center gap-4">
+          <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/10">
+            <span class="material-symbols-outlined text-4xl text-teal-300">calendar_month</span>
+          </div>
+          <div>
+            <h4 class="text-xl md:text-2xl font-bold">Ready to Start Your Healing Journey?</h4>
+            <p class="text-teal-200 text-sm opacity-90 mt-1">Schedule your consultation today and experience natural care.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-4 md:justify-end">
+          <a href="appointment.html" class="bg-white text-teal-secondary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-teal-50 transition-all hover-scale shadow-lg">
+            <span class="material-symbols-outlined">calendar_month</span> Book Appointment
+          </a>
+          <a href="video.html" class="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all hover-scale">
+            <span class="material-symbols-outlined">video_chat</span> Video Consultation
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 mt-10 text-sm">
+        <div class="text-center md:text-left">
+          <h4 class="font-bold text-lg text-teal-300">Dr. Varsha Bandi's Homeopathy</h4>
+          <p class="text-teal-200/60 mt-1">© 2026 Dr. Varsha Bandi Clinic. All rights reserved.</p>
+        </div>
+        <div class="flex gap-6 text-teal-200/80">
+          <a class="hover:text-white transition hover:underline" href="#">Privacy Policy</a>
+          <a class="hover:text-white transition hover:underline" href="#">Terms of Service</a>
+          <a class="hover:text-white transition hover:underline" href="#">FAQ Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- END: FooterCTA -->
+
+  <!-- JavaScript Modules -->
+  <script src="app.js"></script>
 </body>
 </html>

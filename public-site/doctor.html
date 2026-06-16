@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Doctor Dashboard | Dr. Varsha Bandi</title>
+  <meta name="description" content="Doctor dashboard - manage consultations, view patient requests, and join video calls."/>
+  <meta http-equiv="refresh" content="3;url=http://localhost:5173/dashboard"/>
+  
+  <!-- Tailwind CSS & Icon Fonts -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="index.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'teal-primary': '#086b6a',
+            'teal-secondary': '#044e4d',
+            'teal-accent': '#f0fafa'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-main text-gray-800 dark:bg-[#0b1515] dark:text-gray-100 antialiased selection:bg-teal-primary selection:text-white min-h-screen flex items-center justify-center">
+
+  <div class="max-w-lg mx-auto text-center p-8 reveal active">
+    <div class="bg-white dark:bg-[#111f1e] rounded-3xl p-12 shadow-2xl border border-teal-900/5">
+      <!-- Loading Animation -->
+      <div class="w-20 h-20 bg-teal-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
+        <span class="material-symbols-outlined text-teal-primary dark:text-teal-400 text-5xl">dashboard</span>
+      </div>
+      
+      <h1 class="text-2xl font-extrabold text-teal-secondary dark:text-teal-400 mb-3">Doctor Dashboard</h1>
+      <p class="text-gray-500 dark:text-gray-400 text-sm mb-8 leading-relaxed">
+        Redirecting you to the Mefy Webapp Doctor Dashboard where you can manage patients, view consultation requests, and join video calls.
+      </p>
+
+      <div class="flex items-center justify-center gap-2 mb-8">
+        <div class="w-2 h-2 bg-teal-primary rounded-full animate-bounce" style="animation-delay: 0ms;"></div>
+        <div class="w-2 h-2 bg-teal-primary rounded-full animate-bounce" style="animation-delay: 150ms;"></div>
+        <div class="w-2 h-2 bg-teal-primary rounded-full animate-bounce" style="animation-delay: 300ms;"></div>
+      </div>
+
+      <a href="http://localhost:5173/dashboard" class="inline-flex bg-teal-primary hover:bg-teal-secondary text-white px-8 py-4 rounded-xl font-bold items-center gap-2 transition-all shadow-lg hover-scale text-sm">
+        <span class="material-symbols-outlined">open_in_new</span> Open Dashboard Now
+      </a>
+
+      <p class="text-[10px] text-gray-400 mt-6">
+        Make sure the Mefy Webapp backend server is running on <code class="bg-gray-100 dark:bg-teal-950/30 px-2 py-0.5 rounded text-teal-primary">localhost:5000</code>
+        and frontend on <code class="bg-gray-100 dark:bg-teal-950/30 px-2 py-0.5 rounded text-teal-primary">localhost:5173</code>
+      </p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

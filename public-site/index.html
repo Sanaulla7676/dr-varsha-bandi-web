@@ -1,476 +1,633 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dr. Varsha Bandi | Homeopathy & Wellness Expert</title>
-  <meta name="description" content="Dr. Varsha Bandi – BHMS, MD (Hom), MSc Nutrition. Expert homeopathic care for skin, women's health, hormonal issues, chronic diseases & more. Book online or in-person consultation." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Dr. Varsha Bandi - Homoeopath &amp; Wellness Expert</title>
+  
+  <!-- Tailwind CSS & Icon Fonts -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Custom Styling Rules -->
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'teal-primary': '#086b6a',
+            'teal-secondary': '#044e4d',
+            'teal-accent': '#f0fafa'
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
+<body class="bg-main text-gray-800 dark:bg-[#0b1515] dark:text-gray-100 antialiased selection:bg-teal-primary selection:text-white">
 
-<!-- ====== NAVBAR ====== -->
-<nav class="navbar" id="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">
-      <div class="logo-icon">✦</div>
-      <div>
-        <span class="logo-name">Dr. Varsha Bandi</span>
-        <span class="logo-tagline">Homoeopath & Wellness Expert</span>
+  <!-- BEGIN: TopBar -->
+  <div class="bg-[#044e4d] dark:bg-[#033635] text-white py-2.5 px-4 md:px-10 text-xs md:text-sm shadow-sm transition-all" data-purpose="top-bar">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <div class="flex flex-wrap justify-center md:justify-start gap-4">
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">phone_in_talk</span>
+          +91 9902684355 / 9481738539
+        </span>
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">mail</span>
+          drvarshabandi82@gmail.com
+        </span>
+        <span class="flex items-center gap-1.5 opacity-90">
+          <span class="material-symbols-outlined text-[16px] text-teal-300">location_on</span>
+          #102, Nithya Habitat, Sanjivani Nagar, Bengaluru
+        </span>
       </div>
-    </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home" class="nav-link active">Home</a></li>
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#specialities" class="nav-link">Treatments</a></li>
-      <li><a href="video-consultation.html" class="nav-link">Video Consultation</a></li>
-      <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-    </ul>
-    <a href="appointment.html" class="btn-primary nav-cta">Book Appointment</a>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
+      <div class="flex items-center gap-4">
+        <a href="tel:+919902684355" class="bg-red-600 hover:bg-red-700 text-white rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-md shadow-red-900/10 flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">emergency</span> Emergency Call
+        </a>
+      </div>
+    </div>
   </div>
-</nav>
+  <!-- END: TopBar -->
 
-<!-- ====== HERO ====== -->
-<section class="hero" id="home">
-  <div class="hero-bg-circles">
-    <div class="circle c1"></div>
-    <div class="circle c2"></div>
-    <div class="circle c3"></div>
-  </div>
-  <div class="hero-container">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        Trusted by 8,000+ patients across Bengaluru
-      </div>
-      <h1 class="hero-title">
-        Expert Homeopathic Care,<br/>
-        <span class="gradient-text">Clinical Nutrition &amp; Holistic Healing</span>
-      </h1>
-      <p class="hero-desc">Dr. Varsha Bandi combines evidence-based homeopathy with nutrition guidance and yoga therapy to treat the root cause and promote long-term wellness.</p>
-      <div class="hero-actions">
-        <a href="appointment.html" class="btn-primary btn-lg">
-          <span class="material-icons-round">calendar_month</span>
+  <!-- BEGIN: MainHeader -->
+  <header class="sticky top-0 z-50 glass-panel shadow-[0_4px_30px_rgba(8,107,106,0.03)] border-b border-[#086b6a]/10">
+    <nav class="max-w-7xl mx-auto px-4 md:px-10 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 group" data-purpose="logo">
+        <div class="relative w-11 h-11 bg-white rounded-xl shadow-inner border border-teal-100 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
+          <img alt="Dr. Varsha Bandi Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe68SlGmD9lamoEBpSR190TzURLMwPjMI8DpPVjzNAOH-YdjfDie4SFW2hej50y7DYKuwHn3o1TJNzL3kRfgi0S1dZc7do9R_trNFYWckUechGXqL0PGj5Qfxio1ekV54UlmpC_aTifK9L_xvqWUj4uQQQt8d0ErSzWf_gBmEpqC2lLl4h-33wAaMTYm_FH1V3jO41l7bsmI7yTINm1Uax6Mxh63jtZwvgiyoAbwhAt8T-GmBqGgWHK4bHfqhXI1zkZHhOrGMXAqOm" style="object-position: 0 0; clip-path: inset(20px 850px 850px 40px); transform: scale(1.8) translate(8px, 8px);"/>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-[#086b6a] dark:text-teal-400 leading-tight tracking-tight">Dr. Varsha Bandi</h1>
+          <p class="text-[9px] uppercase tracking-widest font-extrabold text-gray-400 dark:text-gray-500">Homoeopath &amp; Wellness Expert</p>
+        </div>
+      </a>
+      
+      <!-- Desktop Nav Menu Links -->
+      <div class="hidden lg:flex items-center gap-8">
+        <a class="text-teal-primary font-bold text-sm border-b-2 border-teal-primary pb-1" href="index.html">Home</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="#about">About Doctor</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="#specialties">Specialities</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="video.html">Video Consultation</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 font-semibold text-sm transition" href="#testimonials">Testimonials</a>
+        
+        <!-- Theme Toggle Switcher -->
+        <button class="theme-toggle-btn p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon material-symbols-outlined">dark_mode</span>
+        </button>
+
+        <a href="appointment.html" class="bg-teal-primary hover:bg-teal-secondary text-white px-5 py-2 rounded-xl font-bold text-sm transition-all duration-300 shadow-md shadow-teal-900/10 hover:shadow-teal-900/20 hover:-translate-y-0.5">
           Book Appointment
         </a>
-        <a href="video-consultation.html" class="btn-outline btn-lg">
-          <span class="material-icons-round">videocam</span>
-          Video Consultation
-        </a>
       </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num">8,000+</span>
-          <span class="stat-lbl">Happy Patients</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num">15+</span>
-          <span class="stat-lbl">Years Experience</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num">4.9/5</span>
-          <span class="stat-lbl">Patient Rating</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num">Online &amp; Offline</span>
-          <span class="stat-lbl">Consultations</span>
-        </div>
-      </div>
-    </div>
-    <div class="hero-image-wrap">
-      <div class="hero-image-bg"></div>
-      <div class="hero-img-placeholder">
-        <div class="dr-avatar">
-          <span class="material-icons-round">person</span>
-        </div>
-        <div class="hero-badge-float badge-f1">
-          <span class="material-icons-round">verified</span> BHMS, MD (Hom)
-        </div>
-        <div class="hero-badge-float badge-f2">
-          <span class="material-icons-round">stars</span> 15+ Years
-        </div>
-        <div class="hero-badge-float badge-f3">
-          <span class="material-icons-round">favorite</span> Holistic Care
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-tags">
-    <span class="tag">✦ Expert Care — Evidence-based</span>
-    <span class="tag">✦ Patient First — Compassionate Care</span>
-    <span class="tag">✦ Holistic Healing — Root Cause Focus</span>
-    <span class="tag">✦ 15+ Years of Experience</span>
-  </div>
-</section>
 
-<!-- ====== ABOUT ====== -->
-<section class="about section" id="about">
-  <div class="container">
-    <div class="section-label">Meet Your Doctor</div>
-    <div class="about-grid">
-      <div class="about-image-col">
-        <div class="about-img-card">
-          <div class="about-img-inner">
-            <span class="material-icons-round about-icon">local_hospital</span>
-            <h3>Dr. Varsha Bandi</h3>
-            <p>BHMS, MD (Hom), MSc Nutrition</p>
-          </div>
-          <div class="about-credentials">
-            <div class="cred-item">
-              <span class="material-icons-round">school</span>
-              <div>
-                <strong>BHMS</strong>
-                <p>Homeopathy Degree</p>
-              </div>
-            </div>
-            <div class="cred-item">
-              <span class="material-icons-round">medical_services</span>
-              <div>
-                <strong>MD (Hom) – Repertory</strong>
-                <p>Specialized Expertise</p>
-              </div>
-            </div>
-            <div class="cred-item">
-              <span class="material-icons-round">nutrition</span>
-              <div>
-                <strong>MSc (Nutrition &amp; Dietetics)</strong>
-                <p>Clinical Nutrition Expert</p>
-              </div>
-            </div>
-            <div class="cred-item">
-              <span class="material-icons-round">self_improvement</span>
-              <div>
-                <strong>Yoga Instructor</strong>
-                <p>Yoga &amp; Lifestyle Guidance</p>
-              </div>
-            </div>
-          </div>
+      <!-- Mobile Nav Buttons -->
+      <div class="flex items-center gap-3 lg:hidden">
+        <button class="theme-toggle-btn p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon material-symbols-outlined">dark_mode</span>
+        </button>
+        <button class="mobile-menu-btn text-teal-primary dark:text-teal-400 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition" aria-label="Open navigation menu">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <!-- END: MainHeader -->
+
+  <!-- BEGIN: Mobile Menu Drawer Overlay -->
+  <div class="mobile-menu-drawer fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-[#111f1e] shadow-2xl border-l border-teal-950/10 transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between">
+    <div>
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <h3 class="font-bold text-[#086b6a] dark:text-teal-400">Navigation Menu</h3>
         </div>
+        <button class="mobile-menu-close p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 dark:text-gray-400 transition">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
       </div>
-      <div class="about-content-col">
-        <h2 class="section-title">DR. VARSHA BANDI</h2>
-        <h3 class="section-subtitle">Compassionate Care. Holistic Healing.</h3>
-        <p class="about-desc">Dr. Varsha Bandi is an experienced Homeopath, Academician and Wellness Expert with a passion for healing lives naturally. She combines evidence-based homeopathy with nutrition guidance and yoga therapy to treat the root cause and promote long-term wellness.</p>
-        <p class="about-desc">With over 15 years of clinical experience, she has helped more than 8,000 patients achieve lasting health improvements through a personalized, holistic approach to medicine.</p>
-        <div class="about-highlights">
-          <div class="highlight">
-            <span class="material-icons-round">verified_user</span>
-            <span>Your Health, Our Priority</span>
-          </div>
-          <div class="highlight">
-            <span class="material-icons-round">science</span>
-            <span>Evidence-Based Practice</span>
-          </div>
-          <div class="highlight">
-            <span class="material-icons-round">psychology</span>
-            <span>Holistic Root Cause Approach</span>
-          </div>
-        </div>
-        <a href="appointment.html" class="btn-primary mt-6">
-          <span class="material-icons-round">calendar_month</span>
-          Book a Consultation
-        </a>
+      <div class="flex flex-col gap-5 text-lg font-medium">
+        <a class="text-teal-primary font-bold border-l-4 border-teal-primary pl-3" href="index.html">Home</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="#about">About Doctor</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="#specialties">Specialities</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="video.html">Video Consultation</a>
+        <a class="text-gray-600 dark:text-gray-300 hover:text-teal-primary dark:hover:text-teal-400 pl-3 transition" href="#testimonials">Testimonials</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ====== SPECIALITIES ====== -->
-<section class="specialities section" id="specialities">
-  <div class="container">
-    <div class="section-label">Our Specialities</div>
-    <h2 class="section-title centered">Comprehensive Care for Every Stage of Life</h2>
-    <div class="specialities-grid">
-      <div class="spec-card">
-        <div class="spec-icon">🌸</div>
-        <h4>Skin Disorders</h4>
-        <p>Acne, Eczema, Psoriasis &amp; other skin problems</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-icon">💜</div>
-        <h4>Women's Health</h4>
-        <p>PCOD, Menstrual Issues, Menopause &amp; more</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-icon">🥗</div>
-        <h4>Digestive Disorders</h4>
-        <p>Acidity, IBS, Constipation, Liver &amp; Gut health</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-icon">🧠</div>
-        <h4>Stress &amp; Anxiety</h4>
-        <p>Stress Management, Anxiety, Depression</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-icon">🫁</div>
-        <h4>Respiratory Problems</h4>
-        <p>Asthma, Allergy, Sinusitis, Bronchitis</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-icon">👶</div>
-        <h4>Child Health</h4>
-        <p>Frequent Colds, Allergy, Growth &amp; Immunity</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-icon">⚖️</div>
-        <h4>Hormonal Issues</h4>
-        <p>Thyroid, Weight Gain, Diabetes Management</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-icon">🫀</div>
-        <h4>Chronic Diseases</h4>
-        <p>Arthritis, Migraine, BP, Lifestyle Disorders</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== WHY CHOOSE ====== -->
-<section class="why-choose section">
-  <div class="container">
-    <div class="section-label">Why Choose Dr. Varsha Bandi?</div>
-    <h2 class="section-title centered">Healing You, Naturally &amp; Holistically</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon-wrap"><span class="material-icons-round">science</span></div>
-        <h4>Evidence-Based Homeopathy</h4>
-        <p>Safe and effective treatments backed by clinical research and medical protocols.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon-wrap"><span class="material-icons-round">nutrition</span></div>
-        <h4>Clinical Nutrition Guidance</h4>
-        <p>Expert dietetic plans integrated with your treatment for faster and sustainable recovery.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon-wrap"><span class="material-icons-round">self_improvement</span></div>
-        <h4>Yoga &amp; Lifestyle Counseling</h4>
-        <p>Therapeutic yoga and lifestyle modifications to maintain long-term wellness.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon-wrap"><span class="material-icons-round">person_pin</span></div>
-        <h4>Personalized Treatment</h4>
-        <p>Every patient is unique; we provide custom-tailored healing plans for individual needs.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon-wrap"><span class="material-icons-round">manage_search</span></div>
-        <h4>Root Cause Approach</h4>
-        <p>We treat not just symptoms, but the root cause to bring lasting relief and harmony.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon-wrap"><span class="material-icons-round">videocam</span></div>
-        <h4>Omnichannel Consultation</h4>
-        <p>Access expert care via private video calls or in-person visits at your convenience.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== HOW IT WORKS ====== -->
-<section class="how-it-works section">
-  <div class="container">
-    <div class="section-label centered-label">Consult From Anywhere</div>
-    <h2 class="section-title centered">Safe, Secure &amp; Convenient Online Consultation</h2>
-    <div class="steps-row">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-icon"><span class="material-icons-round">language</span></div>
-        <h4>Book Online</h4>
-        <p>Choose your consultation type and preferred date</p>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-icon"><span class="material-icons-round">schedule</span></div>
-        <h4>Choose Slot</h4>
-        <p>Select a morning, afternoon, or evening time slot</p>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-icon"><span class="material-icons-round">videocam</span></div>
-        <h4>Video Session</h4>
-        <p>Attend your secure video consultation from home</p>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-icon"><span class="material-icons-round">receipt_long</span></div>
-        <h4>Get Prescription</h4>
-        <p>Receive your personalized treatment plan digitally</p>
-      </div>
-    </div>
-    <div class="hiw-cta">
-      <p>Expert Care Anytime — Book a private video consultation from the comfort of your home.</p>
-      <a href="video-consultation.html" class="btn-primary">
-        <span class="material-icons-round">videocam</span>
-        Book Video Consultation
+    <div>
+      <a href="appointment.html" class="w-full text-center bg-teal-primary hover:bg-teal-secondary text-white py-4 rounded-xl font-bold text-base transition shadow-lg block">
+        Book Appointment
       </a>
     </div>
   </div>
-</section>
+  <!-- END: Mobile Menu Drawer -->
 
-<!-- ====== TESTIMONIALS ====== -->
-<section class="testimonials section" id="testimonials">
-  <div class="container">
-    <div class="section-label">What Our Patients Say</div>
-    <h2 class="section-title centered">Real Stories of Healing</h2>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"Dr. Varsha Bandi madam is very caring and listens patiently. Her treatment has helped me a lot with my chronic migraine. I feel like a different person now!"</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">PS</div>
-          <div>
-            <strong>Priya Sharma</strong>
-            <span>Bengaluru</span>
+  <!-- BEGIN: HeroSection -->
+  <section class="relative gradient-overlay-teal pt-12 pb-24 overflow-hidden min-h-[580px] flex items-center border-b border-teal-900/5">
+    <!-- Floating Background Shapes -->
+    <div class="absolute top-1/4 -left-20 w-80 h-80 bg-teal-200/20 dark:bg-teal-950/20 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-emerald-100/30 dark:bg-emerald-950/10 rounded-full blur-3xl" style="animation: float 8s ease-in-out infinite;"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      <div class="lg:col-span-7 z-10 reveal">
+        <div class="inline-flex items-center gap-2 bg-[#e0f2f1] dark:bg-[#002e2c] text-[#086b6a] dark:text-teal-300 px-3 py-1.5 rounded-full mb-6 text-xs font-bold uppercase tracking-wider animate-pulse-glow">
+          <span class="material-symbols-outlined text-[16px]">verified</span> Trusted Homeopathic Healing
+        </div>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
+          Homeopathy for <br/>
+          <span class="text-teal-primary dark:text-teal-400 relative">
+            a Healthier Life
+            <span class="absolute left-0 bottom-1 w-full h-1.5 bg-teal-400/30 rounded-full"></span>
+          </span>
+        </h2>
+        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-xl font-medium leading-relaxed">
+          Experience highly effective Homeopathic Care, integrated Clinical Nutrition, and Yoga Wellness tailored for your body's natural recovery.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 max-w-lg">
+          <div class="flex items-center gap-3 bg-white/50 dark:bg-[#111f1e]/40 backdrop-blur-sm p-3 rounded-xl border border-teal-950/5">
+            <span class="bg-teal-primary/10 text-teal-primary p-2 rounded-lg"><span class="material-symbols-outlined text-[20px]">workspace_premium</span></span>
+            <span class="text-sm font-semibold">15+ Years of Experience</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white/50 dark:bg-[#111f1e]/40 backdrop-blur-sm p-3 rounded-xl border border-teal-950/5">
+            <span class="bg-teal-primary/10 text-teal-primary p-2 rounded-lg"><span class="material-symbols-outlined text-[20px]">school</span></span>
+            <span class="text-sm font-semibold">BHMS, MD (Homeopathy)</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white/50 dark:bg-[#111f1e]/40 backdrop-blur-sm p-3 rounded-xl border border-teal-950/5">
+            <span class="bg-teal-primary/10 text-teal-primary p-2 rounded-lg"><span class="material-symbols-outlined text-[20px]">nutrition</span></span>
+            <span class="text-sm font-semibold">MSc (Clinical Nutrition)</span>
+          </div>
+          <div class="flex items-center gap-3 bg-white/50 dark:bg-[#111f1e]/40 backdrop-blur-sm p-3 rounded-xl border border-teal-950/5">
+            <span class="bg-teal-primary/10 text-teal-primary p-2 rounded-lg"><span class="material-symbols-outlined text-[20px]">videocam</span></span>
+            <span class="text-sm font-semibold">Video Consult Available</span>
           </div>
         </div>
-      </div>
-      <div class="testimonial-card featured">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"I had PCOD for years, but after following her treatment and diet guidance, I feel much better now. The holistic approach truly makes a difference!"</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">AR</div>
-          <div>
-            <strong>Anjali R.</strong>
-            <span>Bengaluru</span>
-          </div>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="appointment.html" class="bg-teal-primary hover:bg-teal-secondary text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover-scale shadow-lg shadow-teal-950/20">
+            <span class="material-symbols-outlined">calendar_month</span> Book Appointment
+          </a>
+          <a href="video.html" class="border-2 border-teal-primary text-teal-primary dark:text-teal-400 dark:border-teal-400 px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-teal-primary hover:text-white dark:hover:bg-teal-400 dark:hover:text-[#0b1515] transition-all hover-scale">
+            <span class="material-symbols-outlined">video_chat</span> Video Consultation
+          </a>
         </div>
       </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"The combination of homeopathy and nutrition has truly transformed my gut health. I feel more energetic than ever before. Highly recommended!"</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">RK</div>
+
+      <!-- Main Portrait Frame -->
+      <div class="lg:col-span-5 relative flex justify-center items-center reveal md:delay-200">
+        <div class="relative w-80 h-96 md:w-96 md:h-[460px] rounded-3xl overflow-hidden shadow-2xl bg-white p-2 border border-teal-950/10">
+          <div class="absolute inset-0 bg-gradient-to-t from-teal-950/20 via-transparent to-transparent z-10"></div>
+          <img alt="Dr. Varsha Bandi Portrait" class="w-full h-full object-cover rounded-2xl object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxQYo9LZ0xBU8kXBvzn_ePAvAVQ_uCyYLCYB4f04tYe65spkkvTx7cPFxIqdz_vdEryw8UAiPDWwVNMdfhgRcKdUBvkPGYeYANFza-Fr8WnMHBVCuDaVpEtJXW-xY6pVvVLKAwVSr617Cam95b5UqIsQeZjTDdpuAftKgB3U8Hi2r-_GibAMalhcD2UUiVt3Bmpuy6fWEjpHobhgVYbcbN8qvxJFjU13uj_02-bCGaXZGLtxykFuK98Y9SEHCeON2YX576PTzDqEwn"/>
+        </div>
+        <!-- Absolute badge -->
+        <div class="absolute -bottom-6 -left-6 bg-teal-secondary text-white p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-float border border-white/10">
+          <span class="material-symbols-outlined text-3xl text-teal-300">groups</span>
           <div>
-            <strong>Rajesh K.</strong>
-            <span>Bengaluru</span>
+            <p class="text-xl font-black leading-none">8,000+</p>
+            <p class="text-[9px] uppercase tracking-widest font-bold opacity-80">Recovered Patients</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  <!-- END: HeroSection -->
 
-<!-- ====== CTA SECTION ====== -->
-<section class="cta-section section">
-  <div class="container">
-    <div class="cta-card">
-      <div class="cta-content">
-        <h2>Ready to Begin Your Healing Journey?</h2>
-        <p>Book a consultation today &amp; take the first step towards natural, lasting wellness.</p>
-      </div>
-      <div class="cta-actions">
-        <a href="appointment.html" class="btn-white btn-lg">
-          <span class="material-icons-round">calendar_month</span>
-          Book In-Person Visit
-        </a>
-        <a href="video-consultation.html" class="btn-outline-white btn-lg">
-          <span class="material-icons-round">videocam</span>
-          Video Consultation
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== CONTACT ====== -->
-<section class="contact section" id="contact">
-  <div class="container">
-    <div class="section-label">Contact Us</div>
-    <h2 class="section-title centered">Get In Touch</h2>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="contact-item">
-          <span class="material-icons-round">location_on</span>
-          <div>
-            <strong>Clinic Address</strong>
-            <p>Pattegar Palya, Bengaluru, Karnataka</p>
-          </div>
+  <!-- BEGIN: StatsBar -->
+  <section class="max-w-7xl mx-auto px-4 md:px-10 -mt-10 relative z-20 reveal">
+    <div class="bg-white dark:bg-[#111f1e] rounded-3xl shadow-2xl py-8 px-6 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8 border border-teal-950/5">
+      <div class="flex items-center gap-4 border-r border-gray-100 dark:border-teal-900/30 last:border-0 pr-4">
+        <div class="bg-accent-teal dark:bg-teal-950/40 p-3 rounded-2xl text-teal-primary dark:text-teal-400">
+          <span class="material-symbols-outlined text-3xl">emoji_emotions</span>
         </div>
-        <div class="contact-item">
-          <span class="material-icons-round">access_time</span>
-          <div>
-            <strong>Clinic Hours</strong>
-            <p>Mon – Sat: 9:00 AM – 7:00 PM</p>
-            <p>Sunday: By appointment only</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="material-icons-round">videocam</span>
-          <div>
-            <strong>Online Consultations</strong>
-            <p>Available 7 days / 9 AM – 9 PM</p>
-          </div>
+        <div>
+          <p class="text-2xl font-bold leading-tight">8,000+</p>
+          <p class="text-gray-500 dark:text-gray-400 text-xs font-medium">Happy Patients</p>
         </div>
       </div>
-      <div class="contact-booking">
-        <h3>Quick Appointment</h3>
-        <p>Fill the form or call us to schedule your visit</p>
-        <a href="appointment.html" class="btn-primary btn-block mt-4">
-          <span class="material-icons-round">calendar_month</span>
-          Book Appointment Now
-        </a>
-        <a href="video-consultation.html" class="btn-outline btn-block mt-3">
-          <span class="material-icons-round">videocam</span>
-          Online Consultation
-        </a>
+      <div class="flex items-center gap-4 border-r border-gray-100 dark:border-teal-900/30 last:border-0 pr-4">
+        <div class="bg-accent-teal dark:bg-teal-950/40 p-3 rounded-2xl text-teal-primary dark:text-teal-400">
+          <span class="material-symbols-outlined text-3xl">schedule</span>
+        </div>
+        <div>
+          <p class="text-2xl font-bold leading-tight">15+</p>
+          <p class="text-gray-500 dark:text-gray-400 text-xs font-medium">Years Experience</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 border-r border-gray-100 dark:border-teal-900/30 last:border-0 pr-4">
+        <div class="bg-accent-teal dark:bg-teal-950/40 p-3 rounded-2xl text-teal-primary dark:text-teal-400">
+          <span class="material-symbols-outlined text-3xl">star</span>
+        </div>
+        <div>
+          <p class="text-2xl font-bold leading-tight">4.9/5</p>
+          <p class="text-gray-500 dark:text-gray-400 text-xs font-medium">Patient Rating</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="bg-accent-teal dark:bg-teal-950/40 p-3 rounded-2xl text-teal-primary dark:text-teal-400">
+          <span class="material-symbols-outlined text-3xl">patient_list</span>
+        </div>
+        <div>
+          <p class="text-xl font-bold leading-tight">Online / Clinic</p>
+          <p class="text-gray-500 dark:text-gray-400 text-xs font-medium">Dual Practice Mode</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  <!-- END: StatsBar -->
 
-<!-- ====== FOOTER ====== -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="nav-logo">
-          <div class="logo-icon">✦</div>
-          <div>
-            <span class="logo-name">Dr. Varsha Bandi</span>
-            <span class="logo-tagline">Homoeopath &amp; Wellness Expert</span>
+  <!-- BEGIN: AboutSection Redesign -->
+  <section id="about" class="relative py-24 overflow-hidden bg-[#fcfdfd] dark:bg-[#0b1515]">
+    <div class="max-w-7xl mx-auto px-4 md:px-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <!-- Left side: Image collage -->
+        <div class="lg:col-span-5 relative reveal">
+          <div class="absolute -top-10 -left-10 w-24 h-24 bg-teal-100 dark:bg-teal-950 rounded-full blur-2xl opacity-60"></div>
+          <div class="relative rounded-3xl overflow-hidden shadow-xl bg-white p-2 border border-teal-950/5">
+            <img alt="Dr. Varsha Bandi Biography headshot" class="rounded-2xl w-full h-auto object-cover max-h-[460px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb4ih9Jck04BZKWyasXVvY6nqdyhUoCPndH65cHe3hH_BtnD2LBI0PSzm8bVbGOxjy_KpztsHZVHLUFl-Lvfm5XR-AScKX4ka2B1O5jB2Ipk7YyGm1H-jpo7zJ5IL1CRu0klJHMlbFYMTFUXXHmuXHWkKWG5RfWeOYWGByab-EK8Qx6iOdAuY9Eo9ToFuI8E5FeaePALyAxrlZxSOa-F1onX4UGw7HNdR26_H6CBufrPA0iSE0JYi4JBStmc3orewwPiGAiXNd6uvn"/>
+          </div>
+          <!-- Floating Benefits Cards -->
+          <div class="absolute -right-8 top-1/4 hidden xl:block space-y-4">
+            <div class="bg-white dark:bg-[#111f1e] p-3.5 rounded-xl shadow-lg border border-teal-500/10 flex items-center gap-3 w-48 hover-scale">
+              <span class="material-symbols-outlined text-teal-primary bg-teal-50 dark:bg-teal-950/50 p-2 rounded-lg">health_and_safety</span>
+              <div>
+                <p class="text-xs font-black text-gray-800 dark:text-white">EXPERT CARE</p>
+                <p class="text-[10px] text-gray-500">Evidence-based</p>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-[#111f1e] p-3.5 rounded-xl shadow-lg border border-teal-500/10 flex items-center gap-3 w-48 hover-scale">
+              <span class="material-symbols-outlined text-teal-primary bg-teal-50 dark:bg-teal-950/50 p-2 rounded-lg">person_celebrate</span>
+              <div>
+                <p class="text-xs font-black text-gray-800 dark:text-white">PATIENT FIRST</p>
+                <p class="text-[10px] text-gray-500">Compassionate care</p>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-[#111f1e] p-3.5 rounded-xl shadow-lg border border-teal-500/10 flex items-center gap-3 w-48 hover-scale">
+              <span class="material-symbols-outlined text-teal-primary bg-teal-50 dark:bg-teal-950/50 p-2 rounded-lg">eco</span>
+              <div>
+                <p class="text-xs font-black text-gray-800 dark:text-white">HOLISTIC LIFE</p>
+                <p class="text-[10px] text-gray-500">Root cause focus</p>
+              </div>
+            </div>
           </div>
         </div>
-        <p class="footer-desc">Dedicated to providing compassionate, holistic healing for every stage of your life. Trusted by 8,000+ patients.</p>
-      </div>
-      <div class="footer-links">
-        <h5>Quick Links</h5>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About Doctor</a></li>
-          <li><a href="#specialities">Treatments</a></li>
-          <li><a href="video-consultation.html">Video Consultation</a></li>
-          <li><a href="appointment.html">Book Appointment</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h5>Legal</h5>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Wellness Blog</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Dr. Varsha Bandi's Homeopathy Clinic. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
 
-<script src="js/app.js"></script>
+        <!-- Right side: Content -->
+        <div class="lg:col-span-7 reveal md:delay-200">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-teal-primary">medical_services</span>
+            <p class="text-teal-primary font-extrabold text-sm tracking-widest uppercase">Meet Your Doctor</p>
+            <div class="h-[1.5px] w-12 bg-teal-primary/30"></div>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-black text-teal-secondary dark:text-teal-400 leading-none mb-6">DR. VARSHA BANDI</h2>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="border border-teal-100 bg-white dark:bg-teal-950/50 dark:border-teal-900/50 px-4 py-2 rounded-full text-xs font-bold text-gray-700 dark:text-gray-300">
+              BHMS | MD (Hom) | MSc (Clinical Nutrition &amp; Dietetics)
+            </span>
+            <span class="border border-teal-100 bg-white dark:bg-teal-950/50 dark:border-teal-900/50 px-4 py-2 rounded-full text-xs font-bold text-gray-700 dark:text-gray-300">
+              Yoga &amp; Certified Therapist
+            </span>
+          </div>
+          
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+            Compassionate Care. <br/>
+            <span class="text-teal-primary dark:text-teal-400 italic font-serif">Holistic Healing for lasting relief.</span>
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed text-base">
+            Dr. Varsha Bandi is a highly accomplished Homeopath, Academician, and Wellness Expert dedicated to healing lives naturally. She integrates clinical homeopathic therapeutics with nutritional counseling and yoga to address the primary cause of chronic elements and achieve complete restoration of health.
+          </p>
+
+          <!-- Qualifications Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+            <div class="bg-white dark:bg-[#111f1e] p-4 rounded-2xl border border-teal-900/5 flex items-center gap-4 hover-scale">
+              <span class="material-symbols-outlined text-teal-primary bg-teal-50 dark:bg-teal-950/50 p-3 rounded-xl">rewarded_ads</span>
+              <div>
+                <p class="font-bold text-gray-900 dark:text-white text-sm">BHMS Graduate</p>
+                <p class="text-xs text-gray-500">Core Clinical Foundation</p>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-[#111f1e] p-4 rounded-2xl border border-teal-900/5 flex items-center gap-4 hover-scale">
+              <span class="material-symbols-outlined text-teal-primary bg-teal-50 dark:bg-teal-950/50 p-3 rounded-xl">stethoscope</span>
+              <div>
+                <p class="font-bold text-gray-900 dark:text-white text-sm">MD (Hom) – Repertory</p>
+                <p class="text-xs text-gray-500">Advanced Academic Specialization</p>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-[#111f1e] p-4 rounded-2xl border border-teal-900/5 flex items-center gap-4 hover-scale">
+              <span class="material-symbols-outlined text-teal-primary bg-teal-50 dark:bg-teal-950/50 p-3 rounded-xl">nutrition</span>
+              <div>
+                <p class="font-bold text-gray-900 dark:text-white text-sm">MSc Clinical Nutrition</p>
+                <p class="text-xs text-gray-500">Dietetics &amp; Lifestyle Management</p>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-[#111f1e] p-4 rounded-2xl border border-teal-900/5 flex items-center gap-4 hover-scale">
+              <span class="material-symbols-outlined text-teal-primary bg-teal-50 dark:bg-teal-950/50 p-3 rounded-xl">spa</span>
+              <div>
+                <p class="font-bold text-gray-900 dark:text-white text-sm">Certified Yoga Instructor</p>
+                <p class="text-xs text-gray-500">Mindfulness &amp; Spiritual Wellness</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="appointment.html" class="inline-flex bg-teal-secondary text-white px-8 py-4 rounded-xl font-bold items-center gap-2 hover:bg-teal-primary transition-all shadow-lg hover-scale">
+            <span class="material-symbols-outlined">calendar_month</span> Schedule Consultation Flow
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: AboutSection Redesign -->
+
+  <!-- BEGIN: SpecialitiesGrid -->
+  <section id="specialties" class="bg-slate-50 dark:bg-[#111f1e]/20 py-24">
+    <div class="max-w-7xl mx-auto px-4 md:px-10">
+      <div class="text-center mb-16 reveal">
+        <p class="text-teal-primary font-bold text-sm uppercase tracking-widest mb-2">Our Specialities</p>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Comprehensive Care for Every Stage of Life</h3>
+        <p class="text-gray-500 dark:text-gray-400 mt-2 max-w-xl mx-auto text-sm">Expert clinical focus targeting acute and deep-seated systemic concerns through natural remedies.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 reveal md:delay-100">
+        <!-- Card: Skin Disorders -->
+        <div class="bg-white dark:bg-[#111f1e] rounded-3xl overflow-hidden shadow-sm border border-teal-900/5 hover-scale group">
+          <div class="h-48 overflow-hidden relative">
+            <img alt="Skin Disorders" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANh2iKgAgt7cOO2UQpwiXHadhVfNqWufGPeheoI4jONLCLYmCR-co8dw_lPDkqu41AAlmw3erg3TjJUnUOmQtPcKqR_fDxI2cry2SexbgzdURYxX3R-wJmtEG4gxnsrTjvwbUWN2PHHTL2A6zixlZPAzDP-mq-WflpMUD6V1Lrr4sfjiQIj-EQ1C1J8rn1WMtlGBWb0ya7IA6n0O38ttlBXLMvYwbIYbu7Oo85tRDdQ96UvkPI5UX_Ded4h_gAP_u5hmWCttoyMxh8"/>
+          </div>
+          <div class="p-6">
+            <h4 class="font-bold text-lg mb-2 text-teal-secondary dark:text-teal-400">Skin Disorders</h4>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Acne, Eczema, Psoriasis &amp; stubborn pigmentations treated permanently.</p>
+          </div>
+        </div>
+
+        <!-- Card: Women's Health -->
+        <div class="bg-white dark:bg-[#111f1e] rounded-3xl overflow-hidden shadow-sm border border-teal-900/5 hover-scale group">
+          <div class="h-48 overflow-hidden relative">
+            <img alt="Women's Health" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-FOms_ZUOQzJdz43ysbe2plDSZNA_KYEcEE2Q8npup_2VaoJs7I1T673gJnO65SNqhn69R0Wt2-nSVK0UxnFN6SaHX-6RzeFjNlGSRZ-4_nR3U9mbffcGLPL22PusZNi9ggbgBQruuR3oasER3Vv2auvB8Qj3Y1I0Z6jEQnKyY6teijS6R9j4d7DkaotWmjc1fKRMi9qRBLhP8a6YtXWJu1ulCxxqYvnPUOeUtIQ-WMdXJ2zXh0-YEtU33RDudQ-z_AJo-3sHHSHV"/>
+          </div>
+          <div class="p-6">
+            <h4 class="font-bold text-lg mb-2 text-teal-secondary dark:text-teal-400">Women's Health</h4>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">PCOD/PCOS, Fibroids, Menstrual Issues, and Menopause wellness cycles.</p>
+          </div>
+        </div>
+
+        <!-- Card: Digestive Disorders -->
+        <div class="bg-white dark:bg-[#111f1e] rounded-3xl overflow-hidden shadow-sm border border-teal-900/5 hover-scale group">
+          <div class="h-48 overflow-hidden relative">
+            <img alt="Digestive Disorders" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMP4FsFg4Ewsv120tyFELz6-ZBCeS5z284F0QmICvUK59Jhr9yK7LrK-7NqqQEqGY-lBLUCbSAonhMISqWU2IOURTi3QbF1mQLFK9L_NB0uRk0btlsU7Um-G7DbW74CulE8I8zTd80MIYWDnLW-r28lFrmpQvkPNCHa8M093YFxCS3-3-B5hh7QP6-fpQvrPTE1OmW_QDvrDO82OxVOjox4wD0_XTiI-6RqxECxzt2iLWk11ckksCPSLICkF7tIDr6PPUHEWDTBUZG"/>
+          </div>
+          <div class="p-6">
+            <h4 class="font-bold text-lg mb-2 text-teal-secondary dark:text-teal-400">Digestive Disorders</h4>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Chronic Acidity, IBS, Constipation, Fatty Liver &amp; overall gut microbiome restoration.</p>
+          </div>
+        </div>
+
+        <!-- Card: Stress & Anxiety -->
+        <div class="bg-white dark:bg-[#111f1e] rounded-3xl overflow-hidden shadow-sm border border-teal-900/5 hover-scale group">
+          <div class="h-48 overflow-hidden relative">
+            <img alt="Stress &amp; Anxiety" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiXNop1uaBW3zacuwJT2FceBpqqI409S-AN2yqwXLjef0rzXFcPa0pWuxHK6RMjBDxWPZHjB9MY1lPJS-qT4sblMD4aLnzbo-WWlcp1U3HrcEBSPw_2y-tLXo3fYgNmLPtIHKcbneZPuSLgHQ1SFbVQzSa4bQkWCdyMeHuRIOlIuEcTK3W_6skrh5Ug_A5MpIUnBYOXIPaSQf1HRWwncciAJy3ne1jeHRdAt_mn4piNpekU7m5hpXa7KIUJPhPwC7A2Ma_Xlw0w1y1"/>
+          </div>
+          <div class="p-6">
+            <h4 class="font-bold text-lg mb-2 text-teal-secondary dark:text-teal-400">Stress &amp; Anxiety</h4>
+            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Systemic stress management, panic disorder, fatigue syndrome, and mental wellness.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: SpecialitiesGrid -->
+
+  <!-- BEGIN: WhyChooseSection (Enhanced) -->
+  <section class="relative py-24 overflow-hidden border-t border-teal-900/5">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-white/80 dark:bg-[#0b1515]/90 z-10"></div>
+      <img alt="Medical background background design overlay" class="w-full h-full object-cover opacity-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8YS-38lwjanEc32SrcXlscU78or56A7A4XUj2lpYzNfTRWNDVongc8oyuP019bjvMnJwAIrowQ6Xhf7E253872m0pPm8VZCPkTI4agsqX2Nt-_-Nws3mOzITa4qPIqKhrvUaD66-K6iG5P6WtooVKHdB3W62v9NVa7Ut7ph4QhZ6854YC3h1fmlUJ3_0UidCIXEiBvkifg4qWMCyj2qoQhqcpHY41KmV3StSJTmo6fIIkxOwFeVtbjyPJtgkMo12ZPpYXQnFDts-S"/>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+      <div class="reveal">
+        <p class="text-teal-primary font-bold text-sm uppercase tracking-widest mb-2">Why Choose Dr. Varsha Bandi?</p>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-8 leading-tight">Healing You, <br/>Naturally &amp; Holistically</h3>
+        
+        <div class="space-y-6">
+          <div class="flex items-start gap-4 group">
+            <span class="bg-teal-primary/10 text-teal-primary dark:text-teal-400 p-3 rounded-2xl group-hover:bg-teal-primary group-hover:text-white transition-colors duration-300">
+              <span class="material-symbols-outlined">science</span>
+            </span>
+            <div>
+              <h5 class="font-bold text-gray-800 dark:text-white mb-1">Evidence-Based Homeopathy</h5>
+              <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Deep-acting natural therapy prescribed using detailed symptom analysis &amp; constitution mapping.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 group">
+            <span class="bg-teal-primary/10 text-teal-primary dark:text-teal-400 p-3 rounded-2xl group-hover:bg-teal-primary group-hover:text-white transition-colors duration-300">
+              <span class="material-symbols-outlined">nutrition</span>
+            </span>
+            <div>
+              <h5 class="font-bold text-gray-800 dark:text-white mb-1">Integrated Nutrition Plans</h5>
+              <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Specially customized dietary charts that align perfectly with medical treatment for fast healing.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 group">
+            <span class="bg-teal-primary/10 text-teal-primary dark:text-teal-400 p-3 rounded-2xl group-hover:bg-teal-primary group-hover:text-white transition-colors duration-300">
+              <span class="material-symbols-outlined">self_improvement</span>
+            </span>
+            <div>
+              <h5 class="font-bold text-gray-800 dark:text-white mb-1">Mindful Yoga Therapy</h5>
+              <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Mind-body routines designed to restore physiological balance and lower mental stress.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative reveal md:delay-200">
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[460px] border border-teal-950/10">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"></div>
+          <img alt="Dr. Varsha consulting patients" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxQYo9LZ0xBU8kXBvzn_ePAvAVQ_uCyYLCYB4f04tYe65spkkvTx7cPFxIqdz_vdEryw8UAiPDWwVNMdfhgRcKdUBvkPGYeYANFza-Fr8WnMHBVCuDaVpEtJXW-xY6pVvVLKAwVSr617Cam95b5UqIsQeZjTDdpuAftKgB3U8Hi2r-_GibAMalhcD2UUiVt3Bmpuy6fWEjpHobhgVYbcbN8qvxJFjU13uj_02-bCGaXZGLtxykFuK98Y9SEHCeON2YX576PTzDqEwn"/>
+          <div class="absolute bottom-10 left-10 right-10 z-20">
+            <p class="text-white text-lg md:text-xl font-bold leading-relaxed italic">
+              "We treat not just the disease, but the root cause to bring lasting relief and harmony to your life."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: WhyChooseSection -->
+
+  <!-- BEGIN: OnlineConsultationSteps -->
+  <section class="max-w-7xl mx-auto px-4 md:px-10 py-24 reveal">
+    <div class="bg-accent-teal/50 dark:bg-teal-950/10 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-xl border border-teal-500/10">
+      <div class="lg:col-span-8 p-8 md:p-16">
+        <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-2">Consult From Anywhere</h3>
+        <p class="text-gray-500 dark:text-gray-400 mb-12 text-base md:text-lg">Experience complete care via encrypted and private video calls</p>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-white dark:bg-[#111f1e] rounded-2xl shadow-md border border-teal-100 dark:border-teal-950 flex items-center justify-center mx-auto mb-4 hover:-translate-y-1 transition p-3">
+              <img alt="Book Online icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3Sj6sYG7BL28VF5pZzMOyVX8L8T2wMzBYcIbfOwm7veWr_QDHcfM5k7sevubvpCaip5-p8QB5LYonb0NZZWpqeXtKCoGXic-Mvat-iKVehW2vqv1aKGRogOZl0QCinpjsJ3wKb9Ls3c2-u-rho70ESOUBafCFQ0TSm28nhTqo_59NbeXoT8Ljmj3hhz_Z616YEOM8RCkgp1KQx-sI5pG3dfmpd0vVa8eKiw887RLjYHfYFfDQviGlXITUm3MOuy-nKTg7uweKRn8E"/>
+            </div>
+            <p class="text-xs font-bold uppercase text-gray-700 dark:text-gray-300 tracking-wider">Book Online</p>
+          </div>
+          
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-white dark:bg-[#111f1e] rounded-2xl shadow-md border border-teal-100 dark:border-teal-950 flex items-center justify-center mx-auto mb-4 hover:-translate-y-1 transition p-3">
+              <img alt="Choose Slot icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6bYWO9suuSqA1Y2-1XCLc6wyJnphhD4lpznGt7ChU6f9_I2CufMWnJJGGVCgGrt4CSnFW1lGQyUleHy2h-HV_ZZT7etnXs_KDauveoiGCVrf5nmQieyTHQSnAfAeDKQ6cjmAnhqLlkMdjblYCdL5u510wD2oSXrOa8_NS0hVUj_3eaJaWeZuqBy0-QcoiTo3cXAHcvsaOqQve3Zjf7bKUfFaNa2xMQg-FKeyLZPVIRccbNtj1beJL9OUpyD-9s3xfJdRlVkNU0xfY"/>
+            </div>
+            <p class="text-xs font-bold uppercase text-gray-700 dark:text-gray-300 tracking-wider">Choose Slot</p>
+          </div>
+          
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-white dark:bg-[#111f1e] rounded-2xl shadow-md border border-teal-100 dark:border-teal-950 flex items-center justify-center mx-auto mb-4 hover:-translate-y-1 transition p-3">
+              <img alt="Video Consultation icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARCvSFJyswIwIfHzI_Uynz6n1vNMC7Cieb8BVueWvvnyA-HwZR6gEkadgbxBmgmqc8DKRTt15y3FuWQZbAnq20g_rL9fH5-z4qR81TYDacpuM5k-NLAyL1N3RKrnckEQie8UnS5kn1dx_EOzo5wQ9nvStBmDNHcgu5UANw81c451E6Er19cNSV1lDbHeYuJwNkQJcDtZXvdiwi60yQWsuCStm8HvRlh_edSUswW-DKAJD0NmIJnLVQAjH-14pIlMOFuwCsAVMv7mI8"/>
+            </div>
+            <p class="text-xs font-bold uppercase text-gray-700 dark:text-gray-300 tracking-wider">Video Session</p>
+          </div>
+
+          <div class="text-center group">
+            <div class="w-20 h-20 bg-white dark:bg-[#111f1e] rounded-2xl shadow-md border border-teal-100 dark:border-teal-950 flex items-center justify-center mx-auto mb-4 hover:-translate-y-1 transition p-3">
+              <img alt="Get Prescription icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmcDpNCp5SqM4ORmZsJx7xWTYbSHtqp8xXd0ocxygjHQYDPxO3wSg-hfghSDKE-eETXBo6UjFpz-vAMouDSpUiXOpaaCwrfFXIYv3GJDn5rkQ0lCP30KE4PE9dHytnOqidA07XSbXlvL8tYbXnu1VTiIBs1VcUOkmu_Bnz8GgkueSEqTE0hY3QAm8ZzylblQg8ZPrD-ev5589yL5KwRT3wfQTobdy6i8R4YgVY-EPscfFEq3TfAOI75yqbtQokEvXYAWUui1yVoono"/>
+            </div>
+            <p class="text-xs font-bold uppercase text-gray-700 dark:text-gray-300 tracking-wider">Get Prescription</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="lg:col-span-4 relative flex items-center justify-center bg-teal-primary overflow-hidden min-h-[300px]">
+        <img alt="Consultation background design" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxQYo9LZ0xBU8kXBvzn_ePAvAVQ_uCyYLCYB4f04tYe65spkkvTx7cPFxIqdz_vdEryw8UAiPDWwVNMdfhgRcKdUBvkPGYeYANFza-Fr8WnMHBVCuDaVpEtJXW-xY6pVvVLKAwVSr617Cam95b5UqIsQeZjTDdpuAftKgB3U8Hi2r-_GibAMalhcD2UUiVt3Bmpuy6fWEjpHobhgVYbcbN8qvxJFjU13uj_02-bCGaXZGLtxykFuK98Y9SEHCeON2YX576PTzDqEwn"/>
+        <div class="relative z-10 px-8 py-12 text-center w-full">
+          <div class="bg-white/10 dark:bg-black/20 p-6 rounded-2xl border border-white/20 mb-8 backdrop-blur-sm">
+            <h4 class="text-white font-bold text-xl mb-2">Expert Care Anytime</h4>
+            <p class="text-teal-50 dark:text-teal-200 text-sm opacity-90">Engage in private conversations without travel time.</p>
+          </div>
+          <a href="video.html" class="w-full text-center bg-white text-teal-primary py-4 rounded-xl font-bold text-base hover:bg-teal-50 transition shadow-2xl block hover-scale">
+            Start Video Consult Guide
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: OnlineConsultationSteps -->
+
+  <!-- BEGIN: Testimonials (Updated Slider) -->
+  <section id="testimonials" class="py-24 bg-white dark:bg-[#0b1515] border-t border-teal-900/5">
+    <div class="max-w-7xl mx-auto px-4 md:px-10">
+      <div class="text-center mb-16 reveal">
+        <p class="text-teal-primary font-bold text-sm uppercase tracking-widest mb-2">Testimonials</p>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Real Stories of Holistic Healing</h3>
+      </div>
+      
+      <!-- Slider Interface Wrapper -->
+      <div class="relative max-w-4xl mx-auto overflow-hidden reveal md:delay-100">
+        <div class="testimonial-track">
+          <!-- Slide 1 -->
+          <div class="testimonial-slide w-full shrink-0 px-4 md:px-12">
+            <div class="bg-slate-50 dark:bg-[#111f1e] p-8 md:p-12 rounded-3xl border border-teal-900/5 text-center flex flex-col items-center">
+              <div class="mb-6 relative">
+                <div class="absolute -inset-1 bg-gradient-to-tr from-teal-primary to-emerald-300 rounded-full opacity-40 animate-pulse"></div>
+                <img alt="Priya Sharma patient biography review" class="relative w-24 h-24 rounded-full object-cover border-4 border-white dark:border-[#111f1e] shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA64kxGfGvPOr3yKQb24cMJjlGd5ezyyPob9eaJwzbpuDvaE2F6aNj8EBng671WhcN-euhL2X85DFzdKabqJdB5SFrwAfjqI-FlcfaSH2jFjumi2r9gt3wWOekARDuom9O1hAEqkUG946v065FEV2Hm82z7HYBf0KdwR1igI_KH_nyRlhyCeBfXlCBGnYp7rEhlEVfooe-WDVeWw_IrnWahZiLK8Lcd_w88Mbxhh0HAPUZlE9TqMRRvK6dl-b-fGGx4rfaG6uJx2vgr"/>
+              </div>
+              <div class="flex text-yellow-400 mb-4">
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 italic text-base md:text-lg mb-8 leading-relaxed max-w-2xl">
+                "Dr. Varsha Bandi is extremely caring and listens patiently. Her customized homeopathic treatment and nutrition counseling cured my chronic migraine when nothing else worked."
+              </p>
+              <div>
+                <h5 class="font-extrabold text-teal-primary dark:text-teal-400 text-lg">Priya Sharma</h5>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Bengaluru</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Slide 2 -->
+          <div class="testimonial-slide w-full shrink-0 px-4 md:px-12">
+            <div class="bg-slate-50 dark:bg-[#111f1e] p-8 md:p-12 rounded-3xl border border-teal-900/5 text-center flex flex-col items-center">
+              <div class="mb-6 relative">
+                <div class="absolute -inset-1 bg-gradient-to-tr from-teal-primary to-emerald-300 rounded-full opacity-40 animate-pulse"></div>
+                <img alt="Anjali R. patient review" class="relative w-24 h-24 rounded-full object-cover border-4 border-white dark:border-[#111f1e] shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtVrnxCKSBSStD5fa-Y2p2KI41OpBF9iwpTyR5RnS2A6rBe0bnaijMXTbO4sjUJqo7ObdCS9RawxrBw3i8RqDpXUsOAuujQ-zi1Jy9ilDA_7sJaUI9bmewvP51Q6gtDybQvoBKkVvp1qOSoQ1d_XW0059dcz9Y8pHpbvYgu6sel52NA6lUjyphurCkJzGxDZKQOGj7_GRABiZyQcOLjzO8xtCFnXd4RaH0W-GDC5ByXb8oiO5F4PsDe7ph16Dcsi6ZGkYBgRh89_8F"/>
+              </div>
+              <div class="flex text-yellow-400 mb-4">
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 italic text-base md:text-lg mb-8 leading-relaxed max-w-2xl">
+                "I was suffering from severe PCOD symptoms. Under Doctor Varsha's guidance, I adjusted my clinical diet and remedies. Now my cycles are perfectly regular and my energy is amazing."
+              </p>
+              <div>
+                <h5 class="font-extrabold text-teal-primary dark:text-teal-400 text-lg">Anjali R.</h5>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Bengaluru</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrows -->
+        <button class="testimonial-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white dark:bg-[#111f1e] hover:bg-teal-primary hover:text-white text-teal-primary w-11 h-11 rounded-full shadow-lg flex items-center justify-center border border-teal-950/5 transition z-10" aria-label="Previous testimonial">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button class="testimonial-next absolute right-0 top-1/2 -translate-y-1/2 bg-white dark:bg-[#111f1e] hover:bg-teal-primary hover:text-white text-teal-primary w-11 h-11 rounded-full shadow-lg flex items-center justify-center border border-teal-950/5 transition z-10" aria-label="Next testimonial">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+
+      <!-- Dots Wrapper -->
+      <div class="testimonial-dots flex justify-center gap-2 mt-8"></div>
+    </div>
+  </section>
+  <!-- END: Testimonials -->
+
+  <!-- BEGIN: FooterCTA -->
+  <footer class="bg-teal-secondary dark:bg-[#061c1b] text-white pt-16 pb-10 border-t border-white/5 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 md:px-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-white/10 pb-12">
+        <div class="flex items-center gap-4">
+          <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/10">
+            <span class="material-symbols-outlined text-4xl text-teal-300">calendar_month</span>
+          </div>
+          <div>
+            <h4 class="text-xl md:text-2xl font-bold">Ready to Start Your Healing Journey?</h4>
+            <p class="text-teal-200 text-sm opacity-90 mt-1">Schedule your consultation today and experience natural care.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-4 md:justify-end">
+          <a href="appointment.html" class="bg-white text-teal-secondary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-teal-50 transition-all hover-scale shadow-lg">
+            <span class="material-symbols-outlined">calendar_month</span> Book Appointment
+          </a>
+          <a href="video.html" class="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all hover-scale">
+            <span class="material-symbols-outlined">video_chat</span> Video Consultation
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 mt-10 text-sm">
+        <div class="text-center md:text-left">
+          <h4 class="font-bold text-lg text-teal-300">Dr. Varsha Bandi's Homeopathy</h4>
+          <p class="text-teal-200/60 mt-1">© 2026 Dr. Varsha Bandi Clinic. All rights reserved.</p>
+        </div>
+        <div class="flex gap-6 text-teal-200/80">
+          <a class="hover:text-white transition hover:underline" href="#">Privacy Policy</a>
+          <a class="hover:text-white transition hover:underline" href="#">Terms of Service</a>
+          <a class="hover:text-white transition hover:underline" href="#">FAQ Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- END: FooterCTA -->
+
+  <!-- JavaScript Modules -->
+  <script src="app.js"></script>
 </body>
 </html>
