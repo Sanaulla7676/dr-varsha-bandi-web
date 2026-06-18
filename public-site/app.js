@@ -225,7 +225,8 @@ function initBookingFlow() {
     phone: '',
     email: '',
     concern: '',
-    currentStep: 1
+    currentStep: 1,
+    viewDate: new Date(2026, 11, 1) // Start with December 2026 as per design
   };
 
   // 5.1 Service Selection Handles
@@ -243,22 +244,102 @@ function initBookingFlow() {
     });
   });
 
-  // 5.2 Custom Calendar Grid Click Handles
-  const calendarDays = document.querySelectorAll('.calendar-day-btn');
-  calendarDays.forEach(day => {
-    day.addEventListener('click', () => {
-      calendarDays.forEach(d => {
-        d.classList.remove('bg-primary-teal', 'text-white', 'scale-110');
-        d.classList.add('hover:bg-primary-teal/10', 'text-gray-700', 'dark:text-gray-300');
-      });
-      day.classList.add('bg-primary-teal', 'text-white', 'scale-110');
-      day.classList.remove('hover:bg-primary-teal/10', 'text-gray-700', 'dark:text-gray-300');
-      
-      const dayVal = day.getAttribute('data-day');
-      bookingState.date = `Dec ${dayVal}, 2026`;
-      updateSummary();
+  // 5.2 Dynamic Calendar Logic
+  function renderCalendar() {
+    const calendarGrid = document.getElementById('calendar-grid');
+    const monthYearDisplay = document.getElementById('calendar-month-year');
+    if (!calendarGrid || !monthYearDisplay) return;
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const viewDate = bookingState.viewDate;
+    const year = viewDate.getFullYear();
+    const month = viewDate.getMonth();
+
+    monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
+
+    // Clear grid
+    calendarGrid.innerHTML = '';
+
+    // Add day headers
+    const dayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    dayLabels.forEach(day => {
+      const header = document.createElement('div');
+      header.className = 'font-extrabold text-teal-primary dark:text-teal-400 py-1';
+      header.textContent = day;
+      calendarGrid.appendChild(header);
     });
-  });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Previous month days (padding)
+    const prevMonthLastDay = new Date(year, month, 0).getDate();
+    for (let i = firstDay - 1; i >= 0; i--) {
+      const day = document.createElement('div');
+      day.className = 'py-2 text-gray-300 dark:text-gray-700';
+      day.textContent = prevMonthLastDay - i;
+      calendarGrid.appendChild(day);
+    }
+
+    // Current month days
+    for (let i = 1; i <= daysInMonth; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'calendar-day-btn w-8 h-8 flex items-center justify-center hover:bg-primary-teal/10 text-gray-700 dark:text-gray-300 rounded-full font-bold mx-auto transition-all';
+        btn.textContent = i;
+        btn.setAttribute('data-day', i);
+        
+        // Check if this date matches the currently selected date in bookingState
+        // We parse the current bookingState.date which is in "MMM D, YYYY" format
+        const selectedParts = bookingState.date.replace(/,/g, '').split(' ');
+        const selMonth = selectedParts[0];
+        const selDay = parseInt(selectedParts[1]);
+        const selYear = parseInt(selectedParts[2]);
+        
+        const monthShort = monthNames[month].substring(0, 3);
+        if (selYear === year && selMonth === monthShort && selDay === i) {
+            btn.classList.add('bg-primary-teal', 'text-white', 'scale-110');
+            btn.classList.remove('hover:bg-primary-teal/10', 'text-gray-700', 'dark:text-gray-300');
+        }
+
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.calendar-day-btn').forEach(d => {
+                d.classList.remove('bg-primary-teal', 'text-white', 'scale-110');
+                d.classList.add('hover:bg-primary-teal/10', 'text-gray-700', 'dark:text-gray-300');
+            });
+            btn.classList.add('bg-primary-teal', 'text-white', 'scale-110');
+            btn.classList.remove('hover:bg-primary-teal/10', 'text-gray-700', 'dark:text-gray-300');
+            
+            bookingState.date = `${monthShort} ${i}, ${year}`;
+            updateSummary();
+        });
+        calendarGrid.appendChild(btn);
+    }
+  }
+
+  // Handle Month Navigation
+  const prevMonthBtn = document.getElementById('prev-month');
+  const nextMonthBtn = document.getElementById('next-month');
+
+  if (prevMonthBtn) {
+    prevMonthBtn.addEventListener('click', () => {
+      bookingState.viewDate.setMonth(bookingState.viewDate.getMonth() - 1);
+      renderCalendar();
+    });
+  }
+
+  if (nextMonthBtn) {
+    nextMonthBtn.addEventListener('click', () => {
+      bookingState.viewDate.setMonth(bookingState.viewDate.getMonth() + 1);
+      renderCalendar();
+    });
+  }
+
+  // Initial Calendar Render
+  renderCalendar();
 
   // 5.3 Time Slot Click Handles
   const slotButtons = document.querySelectorAll('.time-slot-btn');
