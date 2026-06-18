@@ -61,6 +61,17 @@ router.post('/book', async (req, res) => {
 
     console.log('Appointment created successfully:', appointment._id);
 
+    // Broadcast the new appointment to the dashboard
+    const io = req.app.get('socketio');
+    if (io) {
+      io.emit('appointment-booked', {
+        appointmentId: appointment._id,
+        patientName: name,
+        date: appointmentDate.toLocaleDateString(),
+        timeSlot
+      });
+    }
+
     res.status(201).json({
       success: true,
       message: 'Appointment requested successfully',

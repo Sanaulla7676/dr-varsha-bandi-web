@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../components/Layout';
 import { getAppointments, createAppointment, updateAppointment, deleteAppointment, getPatients } from '../lib/api';
 import { useAuthStore } from '../store';
+import { socket } from '../lib/socket';
 
 const STATUS_COLORS = {
   Pending: 'text-amber-500 bg-amber-500/10 border-amber-500/20',
@@ -76,6 +77,16 @@ export default function Appointments() {
       console.error(err);
       setPatients([]);
     });
+
+    // Listen for new appointments
+    socket.on('appointment-booked', (data) => {
+      console.log('New appointment received via socket:', data);
+      fetchAll();
+    });
+
+    return () => {
+      socket.off('appointment-booked');
+    };
   }, []);
 
   const handleSave = async () => {

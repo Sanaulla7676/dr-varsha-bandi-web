@@ -111,6 +111,18 @@ router.post('/', authenticateToken, auditLog('Appointment Created', 'Appointment
     });
 
     const populated = await appointment.populate('patientId', 'firstName lastName phone');
+    
+    // Broadcast update
+    const io = req.app.get('socketio');
+    if (io) {
+      io.emit('appointment-booked', {
+        appointmentId: populated._id,
+        patientName: `${populated.patientId.firstName} ${populated.patientId.lastName}`,
+        date: new Date(populated.appointmentDate).toLocaleDateString(),
+        timeSlot: populated.appointmentTime
+      });
+    }
+
     res.status(201).json(populated);
   } catch (err) {
     res.status(400).json({ message: err.message });

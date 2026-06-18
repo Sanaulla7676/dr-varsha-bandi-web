@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
 import { getDashboardStats, getGoogleAuthUrl } from '../lib/api';
 import { useAuthStore } from '../store';
+import { socket } from '../lib/socket';
 
 const StatCard = ({ icon, label, value, sub, color, delay }) => (
   <motion.div
@@ -42,13 +43,38 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getDashboardStats()
-      .then((res) => setStats(res.data))
-      .catch((err) => {
-        setError(true);
-        console.error(err);
-      })
-      .finally(() => setLoading(false));
+    const fetchStats = (silent = false) => {
+      if (!silent) setLoading(true);
+      getDashboardStats()
+        .then((res) => setStats(res.data))
+        .catch((err) => {
+          setError(true);
+          console.error(err);
+        })
+        .finally(() => {
+          if (!silent) setLoading(false);
+        });
+    };
+
+    fetchStats();
+    
+    // Listen for real-time updates
+    socket.on('appointment-booked', (data) => {
+      console.log('New appointment received via socket:', data);
+      fetchStats(true); // Silent refresh to feel "instant" like Firebase
+      
+      // Browser notification
+      if (Notification.permission === 'granted') {
+        new Notification('New Appointment', { 
+            body: `${data.patientName} booked for ${data.timeSlot}`,
+            icon: '/favicon.ico'
+        });
+      }
+    });
+
+    return () => {
+      socket.off('appointment-booked');
+    };
   }, []);
 
   const greeting = () => {
