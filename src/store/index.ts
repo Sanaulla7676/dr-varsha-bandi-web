@@ -27,7 +27,7 @@ export interface AuthState {
   isAuthenticated: boolean;
   login: (token: string, refreshToken: string, doctor: Doctor) => void;
   logout: () => void;
-  updateDoctor: (data: Partial<Doctor>) => void;
+  updateDoctor: (data: Partial<Doctor>) => Promise<void>;
 }
 
 export interface UIState {
@@ -63,7 +63,19 @@ export const useAuthStore = create<AuthState>()(
         set({ token: null, refreshToken: null, doctor: null, isAuthenticated: false });
       },
 
-      updateDoctor: (data) => set((state) => ({ doctor: state.doctor ? { ...state.doctor, ...data } : null })),
+      updateDoctor: async (data) => {
+        try {
+          const { updateProfile } = await import('../lib/api');
+          const response = await updateProfile(data);
+          if (response.data.success) {
+            set((state) => ({ doctor: { ...state.doctor!, ...response.data.doctor } }));
+          }
+        } catch (error) {
+          console.error('Failed to update doctor profile:', error);
+          // Fallback to local update if API fails for some reason
+          set((state) => ({ doctor: state.doctor ? { ...state.doctor, ...data } : null }));
+        }
+      },
     }),
     {
       name: 'auth-storage',

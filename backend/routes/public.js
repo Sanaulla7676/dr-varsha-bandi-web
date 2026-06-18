@@ -72,4 +72,20 @@ router.post('/book', async (req, res) => {
   }
 });
 
+// GET /api/public/doctor - Get public profile of the primary doctor
+router.get('/doctor', async (req, res) => {
+  try {
+    let doctor = await Doctor.findOne({ email: 'doctor@homeopathway.com' }).select('name specialization clinicName clinicAddress phone profilePhoto');
+    if (!doctor) doctor = await Doctor.findOne().select('name specialization clinicName clinicAddress phone profilePhoto');
+    
+    if (doctor) {
+      res.json({ success: true, doctor });
+    } else {
+      res.status(404).json({ success: false, message: 'Doctor not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;

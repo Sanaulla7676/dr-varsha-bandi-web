@@ -96,4 +96,30 @@ router.get('/me', require('../middleware/auth').authenticateToken, async (req, r
   }
 });
 
+// PUT /api/auth/profile - Update doctor profile and broadcast change
+router.put('/profile', require('../middleware/auth').authenticateToken, async (req, res) => {
+  try {
+    const doctor = await Doctor.findByIdAndUpdate(req.user.id, req.body, { new: true }).select('-password');
+    if (doctor) {
+      // Broadcast update to all connected clients (including public site)
+      const io = req.app.get('socketio');
+      if (io) {
+        io.emit('doctor-profile-updated', {
+          name: doctor.name,
+          specialization: doctor.specialization,
+          clinicName: doctor.clinicName,
+          clinicAddress: doctor.clinicAddress,
+          phone: doctor.phone,
+          profilePhoto: doctor.profilePhoto
+        });
+      }
+      res.json({ success: true, doctor });
+    } else {
+      res.status(404).json({ success: false, message: 'Doctor not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;

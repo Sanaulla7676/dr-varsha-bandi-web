@@ -51,6 +51,9 @@ const io = new Server(server, {
   cors: corsOptions
 });
 
+// Expose io to routes
+app.set('socketio', io);
+
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB

@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTestimonialSlider();
   initBookingFlow();
   initConsentModal();
+  initRealTimeSync();
 });
 
 /* ==========================================================================
@@ -629,4 +630,74 @@ function initConsentModal() {
       window.location.href = 'appointment.html';
     }
   });
+}
+
+/* ==========================================================================
+   7. Real-Time Data Sync (Dynamic Updates from Dashboard)
+   ========================================================================== */
+function initRealTimeSync() {
+  const API_URL = (window.location.hostname.includes('vercel.app') ? LIVE_BACKEND_URL : LOCAL_BACKEND_URL);
+
+  // 1. Initial Fetch to get latest data from DB
+  fetch(`${API_URL}/api/public/doctor`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        console.log('Initial profile sync successful');
+        updatePublicProfile(data.doctor);
+      }
+    })
+    .catch(err => console.warn('Public data sync failed. Running with static defaults.', err));
+
+  // 2. Socket Listener - Instant updates when dashboard saves
+  if (socket) {
+    socket.on('doctor-profile-updated', (doctor) => {
+      console.log('⚡ Real-time update received from dashboard:', doctor);
+      updatePublicProfile(doctor);
+      showSyncToast();
+    });
+  }
+}
+
+function updatePublicProfile(doctor) {
+  if (!doctor) return;
+
+  // Update All Doctor Name occurrences
+  const allHeaders = document.querySelectorAll('h1, h2, h3, h4, span.font-bold, p, span');
+  allHeaders.forEach(el => {
+    if (el.textContent.includes('Dr. Varsha Bandi')) {
+      el.innerHTML = el.innerHTML.replace('Dr. Varsha Bandi', doctor.name);
+    }
+  });
+
+  // Update Specialization
+  const allPs = document.querySelectorAll('p, span');
+  allPs.forEach(el => {
+    if (el.textContent.trim() === 'Homoeopath & Wellness Expert') {
+      el.textContent = doctor.specialization;
+    }
+  });
+
+  // Update Footer Clinic Title
+  const footerTitle = document.querySelector('footer h4.text-teal-300');
+  if (footerTitle) footerTitle.textContent = doctor.clinicName;
+}
+
+function showSyncToast() {
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed; bottom:20px; right:20px; background:#0d9488; color:white; padding:12px 24px; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1); font-size:12px; font-weight:600; z-index:9999; display:flex; align-items:center; gap:8px; animation: slideUp 0.3s ease-out;';
+  toast.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px">sync</span> Live Update Applied';
+  document.body.appendChild(toast);
+  
+  // Basic animation
+  const style = document.createElement('style');
+  style.innerHTML = `@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`;
+  document.head.appendChild(style);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(20px)';
+    toast.style.transition = 'all 0.3s ease-in';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
 }

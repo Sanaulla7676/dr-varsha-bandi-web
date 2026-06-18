@@ -71,6 +71,7 @@ api.interceptors.response.use(
 // Auth API types & calls
 export const loginDoctor = (data: any) => api.post('/auth/login', data);
 export const getMe = () => api.get('/auth/me');
+export const updateProfile = (data: any) => api.put('/auth/profile', data);
 
 // Dashboard API
 export const getDashboardStats = () => api.get('/dashboard/stats');
