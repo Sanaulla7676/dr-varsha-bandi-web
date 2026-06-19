@@ -46,7 +46,10 @@ export default function Dashboard() {
     const fetchStats = (silent = false) => {
       if (!silent) setLoading(true);
       getDashboardStats()
-        .then((res) => setStats(res.data))
+        .then((res) => {
+          console.log('stats', res.data);
+          setStats(res.data);
+        })
         .catch((err) => {
           setError(true);
           console.error(err);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { getAppointments } from '../lib/api';
 
 export default function DashboardAppointmentsSection() {
     const [appointments, setAppointments] = useState([]);
@@ -9,14 +10,10 @@ export default function DashboardAppointmentsSection() {
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const res = await fetch('http://localhost:5000/api/appointments', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await res.json();
-                if (data.appointments) setAppointments(data.appointments);
+                const { data } = await getAppointments();
+                setAppointments(data);
             } catch (err) {
-                console.error("Failed to fetch appointments");
+                console.error("Failed to fetch appointments:", err);
             } finally {
                 setLoading(false);
             }

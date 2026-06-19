@@ -61,6 +61,7 @@ export default function Appointments() {
     setError(false);
     try {
       const { data } = await getAppointments(filterStatus ? { status: filterStatus } : {});
+      console.log('appointments', data);
       setAppointments(data);
     } catch (err) {
       console.error(err);
