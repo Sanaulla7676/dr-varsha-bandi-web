@@ -122,26 +122,29 @@ export default function Dashboard() {
           {/* Left Column: Insights & Patients */}
           <div className="lg:col-span-3 space-y-8">
             
-            {/* AI Predictive Insights */}
+            {/* Active Clinic Summary */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-r from-primary/10 to-transparent border border-primary/20 rounded-[2rem] p-6 premium-shadow"
+              className="bg-card border border-border rounded-[2rem] p-8 premium-shadow overflow-hidden relative"
             >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/30">
-                  <span className="material-symbols-outlined text-[24px]">electric_bolt</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                    AI Predictive Insights <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] uppercase tracking-wider font-bold">Beta</span>
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">Based on recent clinical data, <strong>2 patients</strong> are flagged for high-risk follow-up this week.</p>
-                  <div className="mt-4 flex gap-3">
-                    <button className="text-xs bg-primary text-white font-bold px-4 py-2 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-transform">Review Cases</button>
-                    <button className="text-xs border border-border hover:bg-secondary text-foreground font-bold px-4 py-2 rounded-xl transition-colors">Dismiss</button>
-                  </div>
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                <span className="material-symbols-outlined text-[120px]">monitor_heart</span>
+              </div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                  Live Clinic Status
+                </h3>
+                <p className="text-sm text-muted-foreground mt-2 max-w-md">
+                  {loading ? 'Analyzing your clinic data...' : 
+                   (stats?.todayAppointments > 0) 
+                   ? `You have ${stats.todayAppointments} appointments scheduled for today. Everything is running smoothly.`
+                   : "You don't have any appointments scheduled for today yet."}
+                </p>
+                <div className="mt-6 flex gap-3">
+                  <Link to="/appointments" className="text-xs bg-primary text-white font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all">Schedule New</Link>
+                  <Link to="/patients" className="text-xs border border-border hover:bg-secondary text-foreground font-bold px-6 py-2.5 rounded-xl transition-all">My Patients</Link>
                 </div>
               </div>
             </motion.div>

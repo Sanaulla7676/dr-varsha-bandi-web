@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-  const primaryUri = "mongodb://sanaullaa19_db_user:Suhail%4008@ac-hakzppl-shard-00-01.pzskqem.mongodb.net:27017/mefy_production?ssl=true&authSource=admin&directConnection=true";
+  // Use the standard replica‑set URI so the driver can discover the primary.
+  const primaryUri = "mongodb+srv://sanaullaa19_db_user:Suhail%4008@ac-hakzppl.pzskqem.mongodb.net/mefy_production?retryWrites=true&w=majority";
   const envUri = process.env.MONGODB_URI;
 
   // Build a list of connection URIs to try.

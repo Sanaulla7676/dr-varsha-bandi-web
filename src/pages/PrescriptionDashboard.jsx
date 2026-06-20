@@ -2,17 +2,10 @@ import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const PRESETS = [
-  { name: 'Belladonna', potency: '30C', dosage: '4 drops', frequency: '2x Daily' },
-  { name: 'Arnica Montana', potency: '200C', dosage: '2 pills', frequency: '3x Daily' },
-  { name: 'Ignatia Amara', potency: '1M', dosage: '5 drops', frequency: 'Once Daily' },
-];
+const PRESETS = [];
 
 export default function PrescriptionDashboard() {
-  const [items, setItems] = useState([
-    { id: 1, name: 'Belladonna', potency: '30C', dosage: '4 drops', frequency: '2x Daily' },
-    { id: 2, name: 'Natrum Muriaticum', potency: '200C', dosage: '2 pills', frequency: 'Once Weekly' },
-  ]);
+  const [items, setItems] = useState([]);
 
   const [newRemedy, setNewRemedy] = useState({
     name: '',
@@ -206,10 +199,7 @@ export default function PrescriptionDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {[
-                { name: 'Ignatia Amara', potency: '1M', text: '3 drops, As Needed', status: 'Active' },
-                { name: 'Arnica Montana', potency: '30C', text: '2 pills, 3x Daily', status: 'Completed' },
-              ].map((p, idx) => (
+              {[].map((p, idx) => (
                 <tr key={idx} className="hover:bg-secondary/10 transition-colors group">
                   <td className="px-6 py-4 font-medium">{p.name}</td>
                   <td className="px-6 py-4 text-muted-foreground">{p.potency}</td>

@@ -19,14 +19,6 @@ function useDebounce(value, delay) {
   return debounced;
 }
 
-const MOCK_PATIENTS = [
-  { _id: '1', patientId: 'HP0001', firstName: 'Rahul', lastName: 'Sharma', phone: '9876543210', gender: 'Male', age: 34, address: 'Hyderabad', lastVisitDate: new Date(), status: 'Active' },
-  { _id: '2', patientId: 'HP0002', firstName: 'Priya', lastName: 'Patel', phone: '9876543211', gender: 'Female', age: 28, address: 'Bangalore', lastVisitDate: new Date(), status: 'Active' },
-  { _id: '3', patientId: 'HP0003', firstName: 'Amit', lastName: 'Kumar', phone: '9876543212', gender: 'Male', age: 45, address: 'Mumbai', lastVisitDate: new Date(), status: 'Inactive' },
-  { _id: '4', patientId: 'HP0004', firstName: 'Sneha', lastName: 'Reddy', phone: '9876543213', gender: 'Female', age: 31, address: 'Chennai', lastVisitDate: new Date(), status: 'Active' },
-  { _id: '5', patientId: 'HP0005', firstName: 'Vikram', lastName: 'Singh', phone: '9876543214', gender: 'Male', age: 52, address: 'Delhi', lastVisitDate: new Date(), status: 'Completed' },
-];
-
 export default function Patients() {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,10 +38,9 @@ export default function Patients() {
       setTotal(data.total || 0);
       setTotalPages(data.totalPages || 1);
     } catch {
-      setPatients(MOCK_PATIENTS.filter(p =>
-        !debouncedSearch || `${p.firstName} ${p.lastName} ${p.phone}`.toLowerCase().includes(debouncedSearch.toLowerCase())
-      ));
-      setTotal(MOCK_PATIENTS.length); setTotalPages(1);
+      setPatients([]);
+      setTotal(0); 
+      setTotalPages(1);
     } finally {
       setLoading(false);
     }

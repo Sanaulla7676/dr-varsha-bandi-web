@@ -48,26 +48,7 @@ export default function BooksDashboard() {
   };
 
   // Default books if offline and local storage is empty
-  const defaultBooks = [
-    {
-      _id: "local-book-1",
-      title: "Organon of Medicine",
-      filename: "organon.pdf",
-      path: "#",
-      mimetype: "application/pdf",
-      size: 2048576,
-      createdAt: new Date(Date.now() - 86400000 * 5).toISOString()
-    },
-    {
-      _id: "local-book-2",
-      title: "Pocket Manual of Homoeopathic Materia Medica",
-      filename: "boericke.pdf",
-      path: "#",
-      mimetype: "application/pdf",
-      size: 4096000,
-      createdAt: new Date(Date.now() - 86400000 * 2).toISOString()
-    }
-  ];
+  const defaultBooks = [];
 
   const getLocalBooks = () => {
     try {

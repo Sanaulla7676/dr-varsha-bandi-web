@@ -2,17 +2,8 @@ import React from 'react';
 import Layout from '../components/Layout';
 import { motion } from 'framer-motion';
 
-const STATS = [
-  { label: 'Total Reports', value: '1,248', change: '+12%', icon: 'description', color: 'text-primary' },
-  { label: 'Pending Review', value: '34', change: 'Requires Attention', icon: 'pending_actions', color: 'text-amber-500' },
-  { label: 'Wellness Trend', value: 'Positive', change: 'Improving', icon: 'trending_up', color: 'text-emerald-500' },
-];
-
-const RECENT_DOCS = [
-  { id: 1, title: 'Comprehensive Blood Panel', patient: 'Eleanor Vance', type: 'Constitutional Analysis', date: 'Oct 24, 2023', status: 'Complete', icon: 'science' },
-  { id: 2, title: 'Vitality Progress Assessment', patient: 'Marcus Sterling', type: 'Follow-up', date: 'Oct 23, 2023', status: 'Pending Review', icon: 'monitor_heart' },
-  { id: 3, title: 'Botanical Reaction Log', patient: 'Clara Oswald', type: 'Allergy Protocol', date: 'Oct 21, 2023', status: 'Complete', icon: 'spa' },
-];
+const STATS = [];
+const RECENT_DOCS = [];
 
 export default function ReportsDashboard() {
   return (
@@ -141,21 +132,7 @@ export default function ReportsDashboard() {
           <div className="bg-card border border-border rounded-2xl p-6 premium-shadow">
             <h3 className="text-lg font-bold mb-4">Scheduled Reviews</h3>
             <div className="space-y-4">
-              {[
-                { date: '26 Oct', title: 'Dr. Aris Thorne', sub: 'Monthly Panel' },
-                { date: '02 Nov', title: 'Pharmacy Team', sub: 'Efficacy Audit' },
-              ].map((ev, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-secondary/50 flex flex-col items-center justify-center">
-                    <span className="text-[10px] font-bold text-muted-foreground uppercase">{ev.date.split(' ')[1]}</span>
-                    <span className="text-lg font-bold leading-none">{ev.date.split(' ')[0]}</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">{ev.title}</p>
-                    <p className="text-xs text-muted-foreground">{ev.sub}</p>
-                  </div>
-                </div>
-              ))}
+              <p className="text-sm text-muted-foreground italic text-center py-4">No scheduled reviews</p>
             </div>
           </div>
         </div>
